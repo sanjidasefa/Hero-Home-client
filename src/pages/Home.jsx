@@ -1,10 +1,20 @@
-import React from 'react';
+import React, {  } from 'react';
+import { useLoaderData } from 'react-router';
+import Benner from '../component/childComponent/Benner';
+import Card from '../component/childComponent/Card';
 
 const Home = () => {
+ const data = useLoaderData()
+ //console.log(data)
   return (
-    <div>
-      
+   <>
+   <Benner></Benner>
+    <div className='grid grid-cols-3 xl:grid-cols-4 gap-20 my-20 '>
+      {
+        data.map(service=> <Card service={service}></Card>)
+      }
     </div>
+   </>
   );
 };
 
