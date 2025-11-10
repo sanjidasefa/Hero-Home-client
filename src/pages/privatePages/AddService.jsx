@@ -1,7 +1,8 @@
 import React from 'react';
-import { data } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const AddService = () => {
+  const navigate = useNavigate()
   const handleAddService = (e)=>{
     e.preventDefault()
     const addService = {
@@ -15,7 +16,7 @@ const AddService = () => {
   providerName : e.target.provider.value,
   description : e.target.description.value,
   email : e.target.email.value,
-  createdAt : new data(),
+  createdAt : new Date(),
   rating : 0
   }
   fetch('http://localhost:3000/Service',{
@@ -27,15 +28,18 @@ const AddService = () => {
   })
   .then(res=> res.json())
   .then(data =>{
+    navigate('/service')
     console.log(data)
   })
   .catch(err => console.log(err))
   }
   return (
-    <div className=''>
-       <h1 className='text-center text-blue-900 my-10 font-bold text-3xl'>Add-Your-service</h1>
-      <form onSubmit={handleAddService}>
-        <div className=" text-2xl border-base-300 rounded-box mb-10 w-[350px] border px-4">
+    <div className='my-10'>
+       <h1 className='text-center text-blue-900  font-bold text-3xl'>Add-Your-service</h1>
+       <p className='text-center text-green-400 my-5 text-xl'>Fill out the form below to add your service and start reaching more customers.</p>
+    
+      <form className='flex justify-center items-center' onSubmit={handleAddService}>
+        <div className=" text-2xl border-base-300 rounded-box  w-[350px] border px-4">
      <label className="label text-blue-900 text-sm my-2">Service-name : </label>
   <input type="text" name='name' className="input bg-white textarea-info text-blue-900" placeholder="Enter your Service Name" />
   

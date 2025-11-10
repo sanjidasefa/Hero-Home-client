@@ -6,7 +6,7 @@ import AddService from "../pages/privatePages/AddService";
 import Login from "../auth/AuthPages/Login";
 import Register from '../auth/AuthPages/Register'
 import Details from "../component/childComponent/Details";
-
+import Update from "../component/childComponent/Update"
 const router = createBrowserRouter([
   {
     path : '/', 
@@ -15,7 +15,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-       
+        loader : ()=> fetch ('http://localhost:3000/home')
       },
       {
         path: '/home',
@@ -34,6 +34,11 @@ const router = createBrowserRouter([
       {
         path: '/Service-Details/:id',
         element: <Details></Details>
+      },
+      {
+        path: '/update-route/:id',
+        element: <Update></Update>,
+        loader: ({params})=> fetch(`http://localhost:3000/Service/${params.id}`)
       }
     ]
   },
@@ -49,7 +54,11 @@ const router = createBrowserRouter([
         element: <Register></Register>
       }
     ]
-  }
+  },
+  // {
+  //   path: '/*',
+  //   element: 
+  // }
 ])
 
 export default router;

@@ -1,25 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router';
 import styled from 'styled-components';
+import { GrMoney } from "react-icons/gr";
+import { FcRating } from "react-icons/fc";
 
 const Card = ({service}) => {
    console.log(service)
-   const {title,rating,image,price, createdBy,_id} = service
+   const {title,rating,image,price,_id} = service
   return (
      <StyledWrapper>
       <div className="card">
         <div className="card2 p-3">
-          <img src={image} alt="" className='h-[180px] rounded-xl mb-2'/>
+          <img src={image} alt="" className='h-[180px] w-full rounded-xl mb-2'/>
           <div className='flex justify-between text-blue-900'>
             <h1 className='text-xl font-semibold'>{title}</h1>
-            <h1 className='text-white bg-green-300 rounded-xl px-2'>{rating}</h1>
+            <h1 className='text-white bg-green-300 rounded-xl flex items-center justify-center gap-2 px-2'><FcRating></FcRating>{rating}</h1>
           </div>
-          <h1 className='text-green-600 font-semibold'>${price}</h1>
+          <h1 className='text-green-400 font-semibold flex'><GrMoney className='mr-2'/>${price}</h1>
           <p className='my-3 text-blue-700'>{service.description}</p>
          
-          <p className='text-blue-900 text-sm'>{createdBy}</p>
+          <p className='text-green-400 text-sm'>{service.email}</p>
            
-          <Link to={`/Service-Details/${_id}`} className="btn w-full text-xl bg-green-400 text-white font-medium rounded-2xl mt-3">Service-Details</Link>
+          <Link to={`/Service-Details/${_id}`} className="btn w-full text-lg bg-green-400 text-white font-medium rounded-2xl mt-3">Service-Details</Link>
         </div>
       </div>
     </StyledWrapper>
@@ -28,16 +30,16 @@ const Card = ({service}) => {
 
 const StyledWrapper = styled.div`
   .card {
-   width: 300px;
-   height: 400px;
+   width: 350px;
+   height: 420px;
    background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
    border-radius: 20px;
    transition: all .3s;
   }
 
   .card2 {
-   width: 300px;
-   height: 400px;
+   width: 350px;
+   height: 420px;
    background-color: #ffffff;
    border-radius: 10px;
    transition: all .2s;

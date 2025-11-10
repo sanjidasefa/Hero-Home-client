@@ -4,7 +4,7 @@ import { Link } from "react-router";
 const Navber = () => {
   return (
     <>
-      <div className="navbar bg-white shadow-sm px-10 lg:px-20 ">
+      <div className="navbar bg-white shadow-green-400 shadow-sm px-10 lg:px-20 ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
