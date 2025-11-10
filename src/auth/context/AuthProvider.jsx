@@ -11,22 +11,23 @@ import {
 import { GoogleAuthProvider } from "firebase/auth";
 import { auth } from "../../firebase/firebase.config";
 
-const provider = new GoogleAuthProvider();
+const googleprovider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [loader, setloader] = useState(true);
   const [user, SetUser] = useState(null);
 
   const google = () => {
-    return signInWithPopup(auth, provider);
+    return signInWithPopup(auth, googleprovider);
   };
 
   const resister = (email, pass) => {
-    setloader(false);
+    setloader(true);
     return createUserWithEmailAndPassword(auth, email, pass);
   };
 
   const login = (email, password) => {
+    setloader(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
@@ -54,7 +55,9 @@ const AuthProvider = ({ children }) => {
     loader,
     user,
   };
-  return <AuthContext value={firebaseAuth}>{children}</AuthContext>;
+  return  <AuthContext value={firebaseAuth}>
+    {children}
+  </AuthContext>
 };
 
 export default AuthProvider;

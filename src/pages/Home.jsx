@@ -11,7 +11,7 @@ const Home = () => {
    <Benner></Benner>
     <div className='grid grid-cols-3  gap-20 my-20 '>
       {
-        data?.map(service=> <Card service={service}></Card>)
+        data?.map(service=> <Card key={service._id} service={service}></Card>)
       }
     </div>
    </>

@@ -7,6 +7,8 @@ import Login from "../auth/AuthPages/Login";
 import Register from '../auth/AuthPages/Register'
 import Details from "../component/childComponent/Details";
 import Update from "../component/childComponent/Update"
+import MyProfile from "../pages/privatePages/MyProfile";
+import MyBooking from "../pages/privatePages/MyBooking";
 const router = createBrowserRouter([
   {
     path : '/', 
@@ -39,26 +41,29 @@ const router = createBrowserRouter([
         path: '/update-route/:id',
         element: <Update></Update>,
         loader: ({params})=> fetch(`http://localhost:3000/Service/${params.id}`)
-      }
-    ]
-  },
-  {
-    path:'/auth',
-    children: [
+      },
       {
-        path: 'login',
+        path: '/my-profile',
+        element : <MyProfile></MyProfile>
+      },
+      {
+        path: '/Service-Booking',
+        element: <MyBooking></MyBooking>
+      },
+       {
+        path: '/Login',
         element : <Login></Login>
       },
       {
-        path: 'resister',
+        path: '/resister',
         element: <Register></Register>
       }
     ]
   },
-  // {
-  //   path: '/*',
-  //   element: 
-  // }
+  {
+    path: '/*',
+    element: <div className="w-11/12 mx-auto items-center flex justify-center ">404 not found</div>
+  }
 ])
 
 export default router;

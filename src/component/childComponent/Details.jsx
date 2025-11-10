@@ -20,7 +20,7 @@ const Details = () => {
   },[id])
   
   if(loader){
-    return <div><span className="loading loading-bars loading-xl"></span></div>
+    return <div className='w-11/12 mx-auto items-center flex justify-center '><span className="loading loading-bars loading-xl"></span></div>
   }
 
   return (
