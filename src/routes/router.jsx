@@ -9,6 +9,8 @@ import Details from "../component/childComponent/Details";
 import Update from "../component/childComponent/Update"
 import MyProfile from "../pages/privatePages/MyProfile";
 import MyBooking from "../pages/privatePages/MyBooking";
+import PrivateRoute from "./PrivateRoute";
+import MyService from "../pages/privatePages/MyService";
 const router = createBrowserRouter([
   {
     path : '/', 
@@ -31,7 +33,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/Add-Service',
-        element: <AddService></AddService>
+        element: <PrivateRoute><AddService></AddService></PrivateRoute>
       },
       {
         path: '/Service-Details/:id',
@@ -44,11 +46,15 @@ const router = createBrowserRouter([
       },
       {
         path: '/my-profile',
-        element : <MyProfile></MyProfile>
+        element : <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
       },
       {
         path: '/Service-Booking',
-        element: <MyBooking></MyBooking>
+        element: <PrivateRoute><MyBooking></MyBooking></PrivateRoute>
+      },
+      {
+        path: '/My-service',
+        element: <PrivateRoute><MyService></MyService></PrivateRoute>
       },
        {
         path: '/Login',

@@ -1,10 +1,11 @@
-import React, {  } from "react";
+import React, { use } from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { Link } from "react-router";
 import AuthContext from "../auth/context/AuthContext";
+import profile from '../assets/profile.png'
 
 const Navber = () => {
-  // const { user } = use(AuthContext);
+   const { user } = use(AuthContext);
   return (
     <>
       <div className="navbar bg-white shadow-green-400 shadow-sm px-10 lg:px-20 ">
@@ -66,16 +67,15 @@ const Navber = () => {
 
         <div className="navbar-end">
           <div className="dropdown dropdown-hover">
-            <Link to="/Login">
+            {/* <Link to="/Login">
               <li>Add Service</li>
-            </Link>
-            <div tabIndex={0} role="button" className="mb-2">
-            {/* <div className="">
+            </Link> */}
+ <div className="">
                 {user ? (
                   <Link to="/my-profile">
                     <img
                       src={
-                        user?.photoURL 
+                        user?.photoURL || profile
                       }
                       className="rounded-full w-15 mr-3 h-15"
                       alt=""
@@ -87,11 +87,13 @@ const Navber = () => {
                     className="text-blue-900 flex justify-center items-center gap-1"
                   >
                     {" "}
-                    <BsPersonCircle size={40} className="mr-3 " />
+                    <img src={profile} alt="" />
                     <span className="text-lg">Login</span>
                   </Link>
                 )}
-              </div> */}
+              </div>
+            <div tabIndex={0} role="button" className="mb-2">
+           
              
             </div>
             <ul
@@ -105,6 +107,10 @@ const Navber = () => {
               <Link to='/Service-Booking'>
                 {" "}
                 <li>My-Bokking</li>
+              </Link>
+              <Link to='/My-service'>
+                {" "}
+                <li>My-Services</li>
               </Link>
 
               <Link>

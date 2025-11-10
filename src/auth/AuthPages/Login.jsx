@@ -1,6 +1,7 @@
 import React, { use } from "react";
 import AuthContext from "../context/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const { login , google} = use(AuthContext);
@@ -12,23 +13,37 @@ const Login = () => {
     const pass = e.target.pass.value;
     const email = e.target.name.value;
     // console.log(name,pass)
-    login(pass,email)
+    login(email,pass)
     .then((res)=>{
-      navigate(location.state || '/')
+       toast.success('Loged-In Successfully ✅' , {
+  style: {
+    border: '1px solid #68d391',
+    padding: '10px',
+    color: '#713200',
+  },
+})
+      navigate(location.state || '/home')
      console.log(res.user)
      e.target.reset()
     })
-    .catch(err=> console.log(err.massege))
+    .catch(err=>{
+      console.log(err.message)
+      toast.error("failed to logIn.")
+    })
   }
 
   const handleGoogle = () => {
     google()
-    .then(()=> navigate(location.state || '/'))
+    .then(()=> navigate(location.state || '/home'))
     .catch(err=> console.log(err.massege))
   }
 
   return (
     <>
+    <Toaster
+  position="top-center"
+  reverseOrder={true}
+/>
       <div className="">
         <h1 className="text-center my-10 text-blue-900  font-bold text-3xl">
           Welcome Back! Please login to your account

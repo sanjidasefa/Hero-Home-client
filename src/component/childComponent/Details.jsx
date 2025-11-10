@@ -47,7 +47,7 @@ const Details = () => {
          
         </div>
          <Link to={`/update-route/${service._id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3">Update-Service</Link>
-         <Link to={`/update-route/${service._id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3"> Book now</Link>
+         <Link to={`/update-route/${service._id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3 mx-4"> Book now</Link>
       </div>
     
       </div>

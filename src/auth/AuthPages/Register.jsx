@@ -1,16 +1,66 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React, { use } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
+import AuthContext from "../context/AuthContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
+  const { google, resister } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+     const pass = e.target.pass.value;
+     const photo = e.target.photo.value;
+    console.log(email,pass,photo)
+    resister(email, pass)
+      .then((res) => {
+        toast.success('Register  Successfully ✅')
+        navigate(location.state || "/home");
+        console.log(res.user);
+        e.target.reset();
+      })
+      .catch((err) => {
+        toast.error("Register failed.")
+        console.log(err.message)
+      });
+  };
+
+  const handleGoogle = () => {
+    google()
+      .then(() => navigate(location.state || "/home"))
+      .catch((err) => {
+        toast.error("google account invalid.")
+        console.log(err.message)
+      });
+  };
   return (
     <>
-    <div className="">
+    <Toaster
+  position="top-center"
+  reverseOrder={true}
+     />
+      <div className="">
         <h1 className="text-center my-10 text-blue-900  font-bold text-3xl">
           Welcome Back! Please login to your account
         </h1>
-        <form className="flex mb-20 justify-center items-center">
+        <form
+          onSubmit={handleRegister}
+          className="flex mb-20 justify-center items-center"
+        >
           <div className=" text-2xl border-base-300 rounded-box  w-[350px] border px-4">
-                       <label className="label  text-blue-900 text-sm my-2">
+            <label className="label  text-blue-900 text-sm my-2">
+              Photo URL :{" "}
+            </label>
+            <input
+              type="text"
+              className="input textarea-info bg-white text-blue-900"
+              name="photo"
+              placeholder=" Enter your Photo URL"
+            />
+
+            <label className="label  text-blue-900 text-sm my-2">
               Provider E-mail :{" "}
             </label>
             <input
@@ -19,8 +69,8 @@ const Register = () => {
               name="email"
               placeholder=" example@gmail.com"
             />
-             <label className="label text-blue-900 text-sm my-2">
-             Password :{" "}
+            <label className="label text-blue-900 text-sm my-2">
+              Password :{" "}
             </label>
             <input
               type="password"
@@ -28,12 +78,15 @@ const Register = () => {
               className="input bg-white textarea-info text-blue-900"
               placeholder="Enter at-least 6 digit password"
             />
-            <p className="text-green-400 text-sm underline ">Forgot password</p>
+          
             <div className="flex flex-col justify-center items-center">
               <button className="btn w-full text-xl bg-green-400 text-white font-medium rounded-2xl m-3">
-                Log-In
+                Register
               </button>
-              <button className="btn  w-full text-xl bg-green-400 text-white font-medium rounded-2xl m-3">
+              <button
+                onClick={handleGoogle}
+                className="btn  w-full text-xl bg-green-400 text-white font-medium rounded-2xl m-3"
+              >
                 <svg
                   aria-label="Google logo"
                   width="16"
@@ -63,9 +116,16 @@ const Register = () => {
                 </svg>
                 Login with Google
               </button>
-
             </div>
-             <p className="text-blue-900 text-sm  mb-4">if you have an account .. Click Here <Link to='/Login' className="text-green-400 text-sm underline ml-2">Login</Link></p>
+            <p className="text-blue-900 text-sm  mb-4">
+              if you have an account .. Click Here{" "}
+              <Link
+                to="/Login"
+                className="text-green-400 text-sm underline ml-2"
+              >
+                Login
+              </Link>
+            </p>
           </div>
         </form>
       </div>

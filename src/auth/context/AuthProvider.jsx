@@ -31,8 +31,6 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-
-
   const signOutProfile = () => {
     setloader(true);
     return signOut(auth);
