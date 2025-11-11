@@ -19,7 +19,7 @@ const Login = () => {
   style: {
     border: '1px solid #68d391',
     padding: '10px',
-    color: '#713200',
+    color: '#ffffff',
   },
 })
       navigate(location.state || '/home')

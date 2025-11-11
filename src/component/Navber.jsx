@@ -5,10 +5,13 @@ import AuthContext from "../auth/context/AuthContext";
 import profile from '../assets/profile.png'
 
 const Navber = () => {
-   const { user } = use(AuthContext);
+   const { user ,signOutProfile } = use(AuthContext);
+   const handleLogOut= ()=>{
+    signOutProfile()
+   }
   return (
     <>
-      <div className="navbar bg-white shadow-green-400 shadow-sm px-10 lg:px-20 ">
+      <div className="navbar w-full h-20 bg-white  shadow-green-400 shadow-sm px-10 lg:px-20 ">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -30,7 +33,7 @@ const Navber = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-30 p-2 shadow"
+              className="menu menu-sm dropdown-content  bg-blue-900 text-white rounded-box z-1 mt-3 w-30 p-2 shadow"
             >
               <Link to="/home">
                 <li>Home</li>
@@ -51,8 +54,8 @@ const Navber = () => {
             <h1>Hero-Home</h1>
           </Link>
         </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal text-blue-950  text-lg gap-2 px-1">
+        <div className="navbar-center text-blue-900   hidden lg:flex">
+          <ul className="menu menu-horizontal   text-lg gap-2 px-1">
             <Link to="/home">
               <li>Home</li>
             </Link>
@@ -77,7 +80,7 @@ const Navber = () => {
                       src={
                         user?.photoURL || profile
                       }
-                      className="rounded-full w-15 mr-3 h-15"
+                      className="rounded-full w-10 mr-3 h-10"
                       alt=""
                     />
                   </Link>
@@ -87,7 +90,7 @@ const Navber = () => {
                     className="text-blue-900 flex justify-center items-center gap-1"
                   >
                     {" "}
-                    <img src={profile} alt="" />
+                    <img src={profile} alt=""  className="rounded-full w-15 mr-3 h-15"/>
                     <span className="text-lg">Login</span>
                   </Link>
                 )}
@@ -113,7 +116,7 @@ const Navber = () => {
                 <li>My-Services</li>
               </Link>
 
-              <Link>
+              <Link onClick={handleLogOut}>
                 <li>Log-out</li>
               </Link>
             </ul>

@@ -14,7 +14,13 @@ const Register = () => {
      const pass = e.target.pass.value;
      const photo = e.target.photo.value;
     console.log(email,pass,photo)
+     const password = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/
+    if(!password.test(pass)){
+      toast.error('password must be 6 character , Uppercase & lowercase character added')
+      return;
+    }
     resister(email, pass)
+   
       .then((res) => {
         toast.success('Register  Successfully ✅')
         navigate(location.state || "/home");

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { use } from 'react';
 import { useNavigate } from 'react-router';
+import AuthContext from '../../auth/context/AuthContext';
 
 const AddService = () => {
+  const {user}=use(AuthContext)
   const navigate = useNavigate()
   const handleAddService = (e)=>{
     e.preventDefault()
@@ -15,7 +17,7 @@ const AddService = () => {
   category : e.target.category.value,
   providerName : e.target.provider.value,
   description : e.target.description.value,
-  email : e.target.email.value,
+  email : user.email,
   createdAt : new Date(),
   rating : 0
   }
@@ -47,7 +49,7 @@ const AddService = () => {
   <input type="text" className="input textarea-info bg-white text-blue-900" name='photo' placeholder=" Enter your Service Photo URL" />
 
   <label className="label  text-blue-900 text-sm my-2">Email : </label>
-  <input type="email" name='email' className="input textarea-info bg-white text-blue-900" placeholder="Enter your Email " />
+  <input type="email" name='email' value={user?.email || ''} readOnly className="input textarea-info bg-white text-blue-900" placeholder="Enter your Email " />
 
   <label className="label  text-blue-900 text-sm my-2">Provider Name : </label>
   <input type="text" name='provider' className="input textarea-info bg-white text-blue-900" placeholder="Enter Provider name" />
@@ -67,7 +69,7 @@ const AddService = () => {
  </div>
  
  <div className='flex justify-center items-center'>
-  <button className="btn w-full text-xl bg-green-400 text-white font-medium rounded-2xl m-3">Service-Details</button>
+  <button className="btn w-full text-xl bg-green-400 text-white font-medium rounded-2xl m-3">Add your Service</button>
  </div>
 </div>
       </form>
