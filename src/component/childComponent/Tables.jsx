@@ -2,7 +2,7 @@ import React, { use, useEffect, useState } from 'react';
 import AuthContext from '../../auth/context/AuthContext';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { } from 'react-router';
+import { Link } from 'react-router';
 
 const Tables = () => {
   const {user} = use(AuthContext)
@@ -23,7 +23,7 @@ const Tables = () => {
   },[user])
 
   if(loader){
-    return <div className='w-11/12 mx-auto items-center flex justify-center '><span className="loading loading-bars loading-xl"></span></div>
+    return <div className='w-11/12 m-auto items-center flex justify-center p-40'><span className="loading loading-bars bg-blue-900 loading-xl"></span></div>
   }
   
   const handleDelate = (id)=>{
@@ -72,6 +72,7 @@ const Tables = () => {
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.category}</Td>
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</Td>
                 <Td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 md:truncate'><RiDeleteBin5Fill />delete</Td>
+                <Td  className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'><Link to={`/update-route/${table._id}`}>Edit</Link></Td>
               </Tr>
             ))}
          </Tbody>

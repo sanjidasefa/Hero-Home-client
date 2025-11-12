@@ -8,9 +8,6 @@ const AddService = () => {
   const handleAddService = (e)=>{
     e.preventDefault()
     const addService = {
-//       title ,price,
-// image,description
-// createdBy
   title : e.target.name.value,
   image : e.target.photo.value,
   price : e.target.price.value,
@@ -18,7 +15,7 @@ const AddService = () => {
   providerName : e.target.provider.value,
   description : e.target.description.value,
   email : user.email,
-  createdAt : new Date(),
+  createdAt : new Date().toLocaleDateString(),
   rating : 0
   }
   fetch('http://localhost:3000/Service',{

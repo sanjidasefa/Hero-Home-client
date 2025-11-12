@@ -11,11 +11,12 @@ import MyProfile from "../pages/privatePages/MyProfile";
 import MyBooking from "../pages/privatePages/MyBooking";
 import PrivateRoute from "./PrivateRoute";
 import MyService from "../pages/privatePages/MyService";
+
 const router = createBrowserRouter([
   {
     path : '/', 
     element: <MainLayout></MainLayout>,
-    hydrateFallbackElement: <div>loading...</div>,
+    hydrateFallbackElement: <div className='w-11/12 p-40 m-auto items-center flex justify-center'><span className="loading bg-blue-900 loading-bars loading-xl"></span></div>,
     children: [
       {
         index: true,
@@ -64,7 +65,8 @@ const router = createBrowserRouter([
       {
         path: '/resister',
         element: <Register></Register>
-      }
+      },
+     
     ]
   },
   {
