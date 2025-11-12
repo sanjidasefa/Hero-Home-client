@@ -46,8 +46,22 @@ const Details = () => {
           </div>
          
         </div>
-         <Link to={`/update-route/${service._id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3">Update-Service</Link>
-         <Link to={`/update-route/${service._id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3 mx-4"> Book now</Link>
+         <Link to={`/update-route/${service._id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3 mr-6">Update-Service</Link>
+
+<button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=>document.getElementById('my_modal_5').showModal()}>Book Now</button>
+<dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Hello!</h3>
+    <p className="py-4">Press ESC key or click the button below to close</p>
+    <div className="modal-action">
+      <form method="dialog">
+       
+        <button className="btn">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
       </div>
     
       </div>

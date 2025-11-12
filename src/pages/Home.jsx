@@ -8,12 +8,16 @@ const Home = () => {
  //console.log(data)
   return (
    <>
-   <Benner></Benner>
+   <div className='flex flex-col'>
+    <div>
+    <Benner></Benner>
+   </div>
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-20 my-20 '>
       {
         data?.map(service=> <Card key={service._id} service={service}></Card>)
       }
     </div>
+   </div>
    </>
   );
 };

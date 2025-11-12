@@ -5,7 +5,7 @@ import { GrMoney } from "react-icons/gr";
 import { FcRating } from "react-icons/fc";
 
 const Card = ({service}) => {
-   console.log(service)
+   //console.log(service)
    const {title,rating,image,price,_id} = service
   return (
      <StyledWrapper>
@@ -17,11 +17,11 @@ const Card = ({service}) => {
             <h1 className='text-white bg-green-300 rounded-xl flex items-center justify-center gap-2 px-2'><FcRating></FcRating>{rating}</h1>
           </div>
           <h1 className='text-green-400 font-semibold flex'><GrMoney className='mr-2'/>${price}</h1>
-          <p className='my-3 text-blue-700'>{service.description}</p>
+          <p className='my-3 text-blue-700 '>{service.description}</p>
          
           <p className='text-green-400 text-sm'>{service.email}</p>
            
-          <Link to={`/Service-Details/${_id}`} className="btn w-full text-lg bg-green-400 text-white font-medium rounded-2xl mt-3">Service-Details</Link>
+          <Link to={`/Service-Details/${_id}`} className="btn mt-3 w-full text-lg bg-green-400 text-white font-medium rounded-2xl">Service-Details</Link>
         </div>
       </div>
     </StyledWrapper>
