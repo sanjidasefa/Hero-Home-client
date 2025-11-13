@@ -62,9 +62,11 @@ const Navber = () => {
             <Link to="/service">
               <li>Service</li>
             </Link>
-            <Link to="/Add-Service">
+            {
+              user? <Link to="/Add-Service">
               <li>Add Service</li>
-            </Link>
+            </Link> : <Link to='/resister'>Resister</Link>
+            }
           </ul>
         </div>
 
@@ -91,17 +93,17 @@ const Navber = () => {
                   >
                     {" "}
                     <img src={profile} alt=""  className="rounded-full w-15 mr-3 h-15"/>
-                    <span className="text-lg">Login</span>
+                    <span className="text-lg text-blue-900">Login</span>
                   </Link>
                 )}
               </div>
-            <div tabIndex={0} role="button" className="mb-2">
+            <div tabIndex={0} role="button" className="mb-2 ">
            
              
             </div>
             <ul
               tabIndex="-1"
-              className="dropdown-content menu bg-blue-900 text-white rounded-box z-1  w-30 p-2 shadow-sm"
+              className="dropdown-content menu bg-blue-900 text-white rounded-box z-1  w-22 p-1 shadow-sm"
             >
               
               <Link to='/my-profile'>

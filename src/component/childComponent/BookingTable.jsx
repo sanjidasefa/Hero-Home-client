@@ -77,7 +77,7 @@ const BookingTable = () => {
                 
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.number}</Td>
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</Td>
-                <Td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 hover:text-green-400 md:truncate'><RiDeleteBin5Fill />delete</Td>
+                <Td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 hover:text-green-400 md:truncate'><RiDeleteBin5Fill />Cancel</Td>
               </Tr>
             ))}
          </Tbody>

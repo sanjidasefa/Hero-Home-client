@@ -82,7 +82,7 @@ const Details = () => {
          
         </div>
          
-<button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=> setModal(true)}>Book Now</button>
+<button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" disabled={service.email === user.email} onClick={()=> setModal(true)}>Book Now</button>
 {
   modal && (
     <dialog open id="my_modal_5" className=" modal modal-bottom sm:modal-middle">

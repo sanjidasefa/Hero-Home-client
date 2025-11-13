@@ -62,7 +62,7 @@ const MyProfile = () => {
               </p>
               
                </div>
-                    <p className='text-blue-900 text-end my-3'>
+                    <p className='text-blue-900 text-sm text-end my-3'>
                last Login : {new Date(user.metadata?.lastSignInTime).toLocaleString()}
               </p> 
             <div>
