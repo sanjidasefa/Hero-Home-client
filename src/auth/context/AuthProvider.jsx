@@ -6,6 +6,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
+  updateProfile,
 } from "firebase/auth";
 
 import { GoogleAuthProvider } from "firebase/auth";
@@ -25,7 +26,9 @@ const AuthProvider = ({ children }) => {
     setloader(true);
     return createUserWithEmailAndPassword(auth, email, pass);
   };
-
+  const updateaProfiledtl = (displayName,photoURL) =>{
+    return updateProfile(auth.currentUser,{displayName,photoURL})
+  }
   const login = (email, password) => {
     setloader(true);
     return signInWithEmailAndPassword(auth, email, password);
@@ -48,6 +51,7 @@ const AuthProvider = ({ children }) => {
   const firebaseAuth = {
     google,
     resister,
+    updateaProfiledtl,
     login,
     signOutProfile,
     loader,

@@ -33,7 +33,7 @@ const Details = () => {
      address : e.target.address.value,
      number : e.target.number.value
   }
-    fetch(`http://localhost:3000//My-booking` , {
+    fetch(`http://localhost:3000/My-booking` , {
       method : 'POST',
       headers:{
           "content-type" : "application/json"
@@ -43,6 +43,7 @@ const Details = () => {
     .then(res=> res.json())
     .then(data =>{
       toast.success('added')
+      setModal(false)
     console.log(data)
      })
       .catch(err => console.log(err))
@@ -84,7 +85,7 @@ const Details = () => {
     <h3 className="font-bold text-blue-900 text-lg"> Fill The Form For Book Our Service</h3>
     <p className="py-4 text-2xl">{service.title}</p>
     <div>
-      <form onClick={handleBook} >
+      <form onSubmit={handleBook} >
         <div className=" text-2xl w-[400px] px-4"> 
           <label className="label mr-3 text-blue-900 text-sm my-2">
              E-mail :{" "}
@@ -94,7 +95,7 @@ const Details = () => {
               className="input textarea-info bg-white text-blue-900"
               name="email"
               placeholder=" example@gmail.com"
-              value={user?.email}
+              value={user?.email || ''}
               readOnly
             />
           <label className="label mr-3 text-blue-900 text-sm my-2">
@@ -104,7 +105,7 @@ const Details = () => {
               type="text"
               className="input textarea-info bg-white text-blue-900"
               name="bookingID"
-              value={service._id}
+              defaultValue={service._id}
               placeholder="Enter SErvice ID"
             />
         <label className="label mr-3 text-blue-900 text-sm my-2">
@@ -114,7 +115,7 @@ const Details = () => {
               type="text"
               className="input textarea-info bg-white text-blue-900"
               name="price"
-              value={service.price}
+              defaultValue={service.price}
               placeholder=" Service Price"
             />
         <label className="label mr-3 text-blue-900 text-sm my-2">
@@ -153,7 +154,7 @@ const Details = () => {
     </div>
     <div className="modal-action">
         <button type='button' className='btn  text-lg bg-green-400 text-white rounded-2xl mt-3' onClick={()=> setModal(false)} >Close</button>
-        <button type='submit' className='btn  text-lg bg-green-400 text-white  rounded-2xl mt-3' onClick={()=> setModal(false)} >book Now</button>
+        <button type='submit' className='btn  text-lg bg-green-400 text-white  rounded-2xl mt-3' >book Now</button>
     </div>
   </div>
 </dialog>
