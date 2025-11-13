@@ -61,6 +61,7 @@ const Details = () => {
 
   return (
     <div className='my-10'>
+      <Toaster></Toaster>
       {/* const {title,rating,image,price, createdBy} = service */}
       <div className='flex flex-col lg:flex-row  gap-10'>
         <img src={service.image} alt="" className='border-8 border-green-300 rounded-xl' />

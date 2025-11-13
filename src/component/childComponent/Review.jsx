@@ -53,17 +53,31 @@ const Review = ({id ,user}) => {
       {
         reviews.map((client =>(
           <div className='' key={client._id}>
-            <p>{client.name} {client.rating}</p>
-            <p>{client.comment}</p>
-            <p>{new Date(client.createdAt).toLocaleDateString()}</p>
+            <p className='text-xl text-blue-900 mb-3 font-bold mt-5'>Customer Name :{client.name} {client.rating}</p>
+            <p className='text-lg text-blue-900 mb-3 font-bold mt-3'>{client.comment}</p>
+            <p className='text-sm text-green-400 mb-3 mt-3'>{new Date(client.createdAt).toLocaleDateString()}</p>
           </div>
         )))
       }
       {
         user && (
            <form className='flex justify-center flex-col items-center' onSubmit={handleReview}>
-             <label className="label text-blue-900 text-sm my-2">Customer Name : </label>
+             <div className='flex items-center justify-center gap-10'>
+              <div>
+                <label className="label text-blue-900 text-sm my-2">Customer Name : </label>
   <input type="text" defaultValue={user?.displayName || ''} name='name' className="input bg-white textarea-info text-blue-900" placeholder="Enter your Name" />
+              </div>
+             <div>
+              <label className="label text-blue-900 text-sm my-2">Rating: </label>
+ <div className="rating">
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="2 star" defaultChecked />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
+  <input type="radio" name="rating-2" className="mask mask-star-2 bg-orange-400" aria-label="5 star" />
+</div>
+             </div>
+             </div>
            <label className="label  text-blue-900 text-sm my-2">Comment : </label>
   <textarea name='comment' placeholder="Enter your Feedback" className="textarea textarea-info bg-white text-blue-900"></textarea>
   <button  className="btn  text-xl bg-green-400 text-white font-medium rounded-2xl m-3" type='submit'>Submit review</button>
