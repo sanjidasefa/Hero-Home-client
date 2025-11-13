@@ -26,8 +26,8 @@ const AuthProvider = ({ children }) => {
     setloader(true);
     return createUserWithEmailAndPassword(auth, email, pass);
   };
-  const updateaProfiledtl = (displayName,photoURL) =>{
-    return updateProfile(auth.currentUser,{displayName,photoURL})
+  const updateaProfiledtl = async (data) =>{
+    return await updateProfile(auth.currentUser,data)
   }
   const login = (email, password) => {
     setloader(true);

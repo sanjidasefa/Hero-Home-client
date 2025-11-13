@@ -4,24 +4,28 @@ import profile from '../../assets/profile.png'
 import { Link } from 'react-router';
 import { auth } from '../../firebase/firebase.config';
 import toast from 'react-hot-toast';
+import { updateProfile } from 'firebase/auth';
 
 
 const MyProfile = () => {
    const [modal , setModal] = useState(false)
-   const { user , updateaProfiledtl ,setUser } = use(AuthContext);
+   const { user ,setUser } = use(AuthContext);
 
- const handleBook = e => {
+ const handleEdit = e => {
     e.preventDefault();
-    
-    const  name = e.target.name.value;
+        const  name = e.target.name.value;
    const photo = e.target.photo.value;
-   updateaProfiledtl({
+   if(!auth.currentUser){
+    return;
+   }
+   updateProfile(auth.currentUser,{
     displayName : name ,
     photoURL : photo
    }).then(()=>{
-      if(!auth.currentUser) return;
      toast.success('Profile Updated Successfully')
-     setUser({...user , displayName : name , photoURL:photo})
+     const update = auth.currentUser
+     setUser({...update})
+     setModal(false)
      e.target.reset()
    })
    .catch(err=>{
@@ -34,33 +38,43 @@ const MyProfile = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col pb-20">
-        <div className="bg-white rounded-2xl pt-10 px-20 my-20 shadow-2xl">
-          <div className="flex justify-center flex-col items-center py-10">
-            <img
-              className="w-50 h-50 shadow-2xl rounded-full border-8 border-white"
+      <div className="py-5">
+        <div className="">
+          <div className="flex rounded-2xl justify-between items-center gap-6 bg-green-400 p-5">
+           <div className='flex justify-center items-center gap-2'>
+             <img
+              className="w-20 h-20 rounded-full"
               src={user?.photoURL || profile}
               alt=""
             />
-            <div>
-              <h1 className="text-4xl font-bold mt-3 capitalize">
+            <div className=''>
+              <h1 className="text-2xl font-bold mt-3 capitalize">
                 {user?.displayName || "anonymous peticipate"}
               </h1>
-              <p className=" text-2xl my-5 text-center ">
-                Email : {user?.email}
+              <p className=" text-sm my-3 ">
+                Email : <span className='text-blue-900 '> {user?.email}</span>
               </p>
-              <p>
+              
+            </div>
+           </div>
+             <p>
                Account Created_at : {new Date(user.metadata?.creationTime).toLocaleString()}
               </p>
-              <p>
+              
+               </div>
+                    <p className='text-blue-900 text-end my-3'>
                last Login : {new Date(user.metadata?.lastSignInTime).toLocaleString()}
-              </p>
+              </p> 
+            <div>
+              
+              
+             
             </div>
-          </div>
+         
         </div>
        
 
-         <button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=> setModal(true)}>Book Now</button>
+         <button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=> setModal(true)}>Edit Profile</button>
 {
   modal && (
     <dialog open id="my_modal_5" className=" modal modal-bottom sm:modal-middle">
@@ -68,7 +82,7 @@ const MyProfile = () => {
     <h3 className="font-bold text-blue-900 text-lg"> Edit Profile</h3>
     
     <div>
-      <form onSubmit={handleBook} >
+      <form onSubmit={handleEdit} >
         <div className=" text-2xl w-[400px] px-4"> 
           <label className="label mr-3 text-blue-900 text-sm my-2">
              Name :{" "}
@@ -110,8 +124,4 @@ const MyProfile = () => {
 };
 
 
-// ○ Design the user profile page as you wish, but it will show the user&#39;s basic info
-// like: email, name, photo, last login time, etc.
-// ○ Update Profile option: implement the user update profile option to update the
-// user name and image. Design is up to you.
 export default MyProfile;
