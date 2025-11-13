@@ -7,12 +7,15 @@ const Service = () => {
   const [ searchData , setSearchData ] = useState(data)
   const handleSearch= e =>{
     e.preventDefault();
+  
     const search = e.target.search.value
+    
     fetch(`http://localhost:3000/search?search=${search}`)
     .then(res => 
       res.json()
     )
     .then(data => {
+      console.log(data)
       setSearchData(data)
     })
   }

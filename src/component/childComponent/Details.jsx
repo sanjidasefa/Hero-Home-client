@@ -6,6 +6,7 @@ import { CiTimer } from "react-icons/ci";
 import { FcRating } from "react-icons/fc";
 import AuthContext from '../../auth/context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
+import Review from './Review';
 
 const Details = () => {
   const {user ,loader} = use(AuthContext)
@@ -165,7 +166,8 @@ const Details = () => {
   </div>
 </dialog>
   )
-}
+}      
+     <Review id={service._id} user={user}></Review>
       </div>
     
       </div>

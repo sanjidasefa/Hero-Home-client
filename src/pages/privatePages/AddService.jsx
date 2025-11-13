@@ -10,13 +10,14 @@ const AddService = () => {
     const addService = {
   title : e.target.name.value,
   image : e.target.photo.value,
-  price : e.target.price.value,
+  price : parseFloat(e.target.price.value),
   category : e.target.category.value,
   providerName : e.target.provider.value,
   description : e.target.description.value,
   email : user.email,
   createdAt : new Date().toLocaleDateString(),
-  rating : 0
+  rating : 0,
+  review :[],
   }
   fetch('http://localhost:3000/Service',{
     method: "POST",
@@ -62,7 +63,7 @@ const AddService = () => {
   </div>
  <div className='flex justify-around gap-3.5'>
    <input type="text" name='category' className="input textarea-info bg-white text-blue-900" placeholder="your Category" />
-  <input type="text" name='price' className="input textarea-info bg-white text-blue-900" placeholder="Price" />
+  <input type="number" name='price' className="input textarea-info bg-white text-blue-900" placeholder="Price" />
  </div>
  </div>
  
