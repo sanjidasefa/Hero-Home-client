@@ -1,16 +1,22 @@
-# React + Vite
+Project Name : Hero Home 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Description : HomeHero is a modern and user-friendly web application that bridges the gap between customers and trusted local service providers such as electricians, plumbers, cleaners, and more.
+The platform allows users to explore available services, view detailed information, and book appointments seamlessly.
+Service providers can easily manage their listings, prices, and booking requests.
+With a clean interface, secure authentication, and real-time booking management, HomeHero ensures a smooth and efficient experience for both customers and providers.
 
-Currently, two official plugins are available:
+Live Link URL : 
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Key Features :
+    - Service Listing Nd category filter
+    - Booking Option And Add Service Option 
+    - Firebase Authentication System 
+    - User DashBoard to View Bookings
+    - Full Responsive Layout
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tech Stack :
+   FronEND : HTML ,Tailwind CSS , daisyUI , React.js , React-router
+   Backend : Node.js , Express.js
+   Database : MongoDB 
+   Authentication : Firebase
+   Hosting : Vercel
