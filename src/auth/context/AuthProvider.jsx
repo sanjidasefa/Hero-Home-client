@@ -16,7 +16,7 @@ const googleprovider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
   const [loader, setloader] = useState(true);
-  const [user, SetUser] = useState(null);
+  const [user, setUser] = useState(null);
 
   const google = () => {
     return signInWithPopup(auth, googleprovider);
@@ -41,7 +41,7 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const userData = onAuthStateChanged(auth, (currentUser) => {
-      SetUser(currentUser);
+      setUser(currentUser);
       setloader(false);
     });
     return () => {
@@ -56,6 +56,7 @@ const AuthProvider = ({ children }) => {
     signOutProfile,
     loader,
     user,
+    setUser,
   };
   return  <AuthContext value={firebaseAuth}>
     {children}

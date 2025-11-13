@@ -5,30 +5,34 @@ import { GrMoney } from "react-icons/gr";
 import { CiTimer } from "react-icons/ci";
 import { FcRating } from "react-icons/fc";
 import AuthContext from '../../auth/context/AuthContext';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Details = () => {
-  const {user} = use(AuthContext)
+  const {user ,loader} = use(AuthContext)
   const [modal , setModal] = useState(false)
   const {id }=useParams()
   const [service , setService ] = useState([])
-  const [loader , setloader]  = useState(true)
+  const [loading , setloading]  = useState(true)
   // console.log(service)
   useEffect(()=>{
     fetch(`http://localhost:3000/Service/${id}`)
     .then(res => res.json())
     .then(data =>{
       setService(data)
-      setloader(false)
+      setloading(false)
     })
   },[id])
   
   const handleBook = e => {
     e.preventDefault();
+    if(!user){
+      toast.error('user not availavail')
+    }
     const addBooking = {
+     Service_name : service.title,
       bookingID : service._id,
      price : service.price,
-     booked_by : user.email,
+    booked_by : user?.email || '',
      bookingDate : e.target.date.value,
      address : e.target.address.value,
      number : e.target.number.value
@@ -41,15 +45,16 @@ const Details = () => {
       body : JSON.stringify(addBooking)
     })
     .then(res=> res.json())
-    .then(data =>{
+    .then(() =>{
       toast.success('added')
       setModal(false)
-    console.log(data)
+      e.target.reset()
+    // console.log(data)
      })
       .catch(err => console.log(err))
   }
 
-  if(loader){
+  if(loading || loader ){
     return <div className='w-11/12 m-auto items-center flex justify-center p-40'><span className="loading bg-blue-900 loading-bars loading-xl"></span></div>
   }
 
@@ -150,12 +155,13 @@ const Details = () => {
             />
 
         </div>
-      </form>
-    </div>
-    <div className="modal-action">
+          <div className="modal-action">
         <button type='button' className='btn  text-lg bg-green-400 text-white rounded-2xl mt-3' onClick={()=> setModal(false)} >Close</button>
         <button type='submit' className='btn  text-lg bg-green-400 text-white  rounded-2xl mt-3' >book Now</button>
     </div>
+      </form>
+    </div>
+  
   </div>
 </dialog>
   )

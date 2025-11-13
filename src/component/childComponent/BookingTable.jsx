@@ -1,16 +1,17 @@
+
 import React, { use, useEffect, useState } from 'react';
 import AuthContext from '../../auth/context/AuthContext';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { Link } from 'react-router';
 
-const Tables = () => {
-  const {user} = use(AuthContext)
+const BookingTable = () => {
+   const {user} = use(AuthContext)
   const [loader , setLoader] = useState(true)
   const [service,setService]= useState([])
   
   useEffect(()=>{
-    fetch(`http://localhost:3000/my-Services/${encodeURIComponent(user.email)}`,{
+    fetch(`http://localhost:3000/My-booking/${encodeURIComponent(user.email)}`,{
       headers:{
         autorization : `bearar ${user.accessToken}`
       }
@@ -48,18 +49,19 @@ const Tables = () => {
   return (
    <>
    <div className=''>
-     <div className='overflow-x-auto shadow-lg'>
+     <div className='overflow-x-auto shadow-lg '>
     
-    <Table className=' min-w-full text-sm  text-white bg-green-400'>
+    <Table className='min-w-full text-sm  text-white bg-green-400'>
   <Thead>
     <Tr className='border-2 border-blue-900'>
-     
-      <Th className=''>Title</Th>
-              <Th className='p-1 md:p-2 lg:p-3 '>Provider_Name</Th>
+    
+             
+             <Th className='p-1 md:p-2 lg:p-3'>Title</Th>
+              <Th className='p-1 md:p-2 lg:p-3 '>Customer name</Th>
               <Th className='p-1 md:p-2 lg:p-3'>Date</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Cetagory</Th>
+              <Th className='p-1 md:p-2 lg:p-3'>Address</Th>
+              <Th className='p-1 md:p-2 lg:p-3'>Contact Number</Th>
               <Th className='p-1 md:p-2 lg:p-3'>Price</Th>
-              
     </Tr>
   </Thead>
   <Tbody>
@@ -67,12 +69,15 @@ const Tables = () => {
               <Tr className=' border-2 hover:bg-blue-900 border-blue-900'  key={table._id}>
                 <Td  className='border-2  border-blue-900  p-1 md:p-2 lg:p-3'>{index+1}</Td>
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.title}</Td>
-                <Td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.providerName}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.createdAt}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.category}</Td>
+                <Td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.Service_name}</Td>
+                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.booked_by}</Td>
+                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.bookingDate}</Td>
+               
+                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.address}</Td>
+                
+                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.number}</Td>
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</Td>
-                <Td onClick={()=> handleDelate(table._id)} className='lg:flex  hover:text-green-400 items-center gap-2 p-1 md:p-2 lg:p-3 md:truncate'><RiDeleteBin5Fill />delete</Td>
-                <Td  className='border-2  hover:text-green-400 border-blue-900 md:truncate p-1 md:p-2 lg:p-3'><Link to={`/update-route/${table._id}`}>Edit</Link></Td>
+                <Td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 hover:text-green-400 md:truncate'><RiDeleteBin5Fill />delete</Td>
               </Tr>
             ))}
          </Tbody>
@@ -84,4 +89,4 @@ const Tables = () => {
   );
 };
 
-export default Tables;
+export default BookingTable;

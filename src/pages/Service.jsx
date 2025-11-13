@@ -4,11 +4,11 @@ import { useLoaderData } from 'react-router';
 
 const Service = () => {
   const data = useLoaderData()
-  console.log(data)
+ // console.log(data)
   return (
     <div>
       <h1 className='text-center text-blue-900 mt-10 font-bold text-3xl'>Our All Services</h1>
-       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-20 my-20 '>
+       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-col-4  gap-20 my-20 '>
         
       {
         data.map(service=> <Card key={service._id} service={service}></Card>)

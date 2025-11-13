@@ -29,6 +29,7 @@ const AddService = () => {
   .then(data =>{
     navigate('/service')
     console.log(data)
+    e.target.reset()
   })
   .catch(err => console.log(err))
   }

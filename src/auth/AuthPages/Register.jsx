@@ -4,12 +4,13 @@ import AuthContext from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const { google, resister } = use(AuthContext);
+  const { google, resister , updateaProfiledtl,user , setUser} = use(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
     const email = e.target.email.value;
      const pass = e.target.pass.value;
      const photo = e.target.photo.value;
@@ -20,8 +21,17 @@ const Register = () => {
       return;
     }
     resister(email, pass)
-   
       .then((res) => {
+         updateaProfiledtl({
+          displayName : name,
+          photoURL : photo
+        }).then(()=>{
+          setUser({...user , displayName : name,
+          photoURL : photo})
+        }).catch(err=> { 
+          setUser(user)
+          console.log(err)
+        })
         toast.success('Register  Successfully ✅')
         navigate(location.state || "/home");
         console.log(res.user);
@@ -56,6 +66,15 @@ const Register = () => {
           className="flex mb-20 justify-center items-center"
         >
           <div className=" text-2xl border-base-300 rounded-box  w-[350px] border px-4">
+            <label className="label  text-blue-900 text-sm my-2">
+             Name :{" "}
+            </label>
+            <input
+              type="text"
+              className="input textarea-info bg-white text-blue-900"
+              name="name"
+              placeholder=" Enter your Name"
+            />
             <label className="label  text-blue-900 text-sm my-2">
               Photo URL :{" "}
             </label>

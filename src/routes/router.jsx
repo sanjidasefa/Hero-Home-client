@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter, Link } from "react-router";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home";
 import Service from "../pages/Service";
@@ -71,7 +71,10 @@ const router = createBrowserRouter([
   },
   {
     path: '/*',
-    element: <div className="w-11/12 mx-auto items-center flex justify-center ">404 not found</div>
+    element: <div className="w-11/12 flex-col mx-auto items-center flex justify-center pt-40">
+     <h1 className="text-3xl"> 404 not found</h1>
+     <Link className="btn mt-3 text-lg bg-green-400 text-white font-medium rounded-2xl" to='/home'>Go to Home</Link>
+      </div>
   }
 ])
 
