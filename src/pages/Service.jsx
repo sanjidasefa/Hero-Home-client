@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Card from '../component/childComponent/Card';
 import { useLoaderData } from 'react-router';
+import 'animate.css';
 
 const Service = () => {
   const data = useLoaderData()
@@ -48,7 +49,7 @@ const Service = () => {
 </form>
 
       <h1 className='text-center text-blue-900 mt-10 font-bold text-3xl'>Our All Services</h1>
-       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-20 my-20 '>
+       <div className= 'animate__animated animate__backInUp grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-20 my-20 '>
         
       {
         searchData.length  > 0 ? (

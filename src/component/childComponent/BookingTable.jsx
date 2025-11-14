@@ -55,9 +55,10 @@ const BookingTable = () => {
   <Thead>
     <Tr className='border-2 border-blue-900'>
     
-             
-             <Th className='p-1 md:p-2 lg:p-3'>Title</Th>
+             <Th></Th>
+            <Th className='p-1 md:p-2 lg:p-3 '>Service Name</Th>
               <Th className='p-1 md:p-2 lg:p-3 '>Customer name</Th>
+             
               <Th className='p-1 md:p-2 lg:p-3'>Date</Th>
               <Th className='p-1 md:p-2 lg:p-3'>Address</Th>
               <Th className='p-1 md:p-2 lg:p-3'>Contact Number</Th>
@@ -68,14 +69,11 @@ const BookingTable = () => {
        {service.map((table ,index) => (
               <Tr className=' border-2 hover:bg-blue-900 border-blue-900'  key={table._id}>
                 <Td  className='border-2  border-blue-900  p-1 md:p-2 lg:p-3'>{index+1}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.title}</Td>
                 <Td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.Service_name}</Td>
                  <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.booked_by}</Td>
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.bookingDate}</Td>
-               
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.address}</Td>
-                
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.number}</Td>
+              <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.address}</Td>
+             <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.number}</Td>
                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</Td>
                 <Td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 hover:text-green-400 md:truncate'><RiDeleteBin5Fill />Cancel</Td>
               </Tr>

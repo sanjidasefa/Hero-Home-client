@@ -1,15 +1,26 @@
-import React, { use } from "react";
+import React, { use} from "react";
 import { BsPersonCircle } from "react-icons/bs";
 import { Link } from "react-router";
 import AuthContext from "../auth/context/AuthContext";
 import profile from '../assets/profile.png'
-
+import { GoMoon } from "react-icons/go";
+import { BsSunFill } from "react-icons/bs";
 const Navber = () => {
    const { user ,signOutProfile } = use(AuthContext);
    const handleLogOut= ()=>{
     signOutProfile()
    }
-  return (
+  const handleThemes = (checked) => {
+    const html = document.querySelector('html')
+    if(checked){
+      html.setAttribute('data-theme', 'dark')
+    }
+    else{
+      html.setAttribute('data-theme', 'light')
+    }
+  }
+  
+   return (
     <>
       <div className="navbar w-full h-20 bg-white  shadow-green-400 shadow-sm px-10 lg:px-20 ">
         <div className="navbar-start">
@@ -69,8 +80,19 @@ const Navber = () => {
             }
           </ul>
         </div>
+        
+         
 
         <div className="navbar-end">
+
+         <label className="toggle mr-2 text-base-content ">
+  <input  type="checkbox"    onChange={(e)=> handleThemes(e.target.checked)}  defaultChecked={localStorage.getItem('theme') === "dark"}/>
+  <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+   <BsSunFill />
+  </svg>
+  <GoMoon />
+</label>
+
           <div className="dropdown dropdown-hover">
             {/* <Link to="/Login">
               <li>Add Service</li>

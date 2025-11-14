@@ -1,42 +1,52 @@
 import React from "react";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+// import 'swiper/css';
+// import 'swiper/css/navigation';
+// import 'swiper/css/pagination';
+import slide2 from '../../assets/slide2.jpg'
+import slide3 from '../../assets/slide3.jpg'
+import slide4 from '../../assets/slide5.jpg'
+import slide5 from '../../assets/slide6.jpg'
+import { Link } from "react-router";
+
+
 
 const Benner = () => {
-  // const settings = {
-  //   className: "center",
-  //   centerMode: true,
-  //   infinite: true,
-  //   centerPadding: "60px",
-  //   slidesToShow: 3,
-  //   speed: 500
-  // };
+ 
   return (
-    <div>
-      {/* <div className="slider-container">
-      <Slider {...settings}>
-        <div>
-          <h3 className="text-black">hello</h3>
-        </div>
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
-        <div>
-          <h3>6</h3>
-        </div>
-      </Slider>
-    </div> */}
-    </div>
+   <>
+   <div className="carousel w-full">
+  <div id="item1" className="carousel-item w-full">
+    <img
+      src={slide3}
+      className="w-full" />
+  </div>
+  <div id="item2" className="carousel-item w-full">
+    <img
+      src={slide2}
+      className="w-full" />
+  </div>
+  <div id="item3" className="carousel-item w-full">
+    <img
+      src={slide4}
+      className="w-full" />
+  </div>
+  <div id="item4" className="carousel-item w-full">
+    <img
+      src={slide5}
+      className="w-full" />
+  </div>
+</div>
+<div className="flex w-full justify-center gap-2 py-2">
+  <a href="#item1" className="btn btn-xs">1</a>
+  <a href="#item2" className="btn btn-xs">2</a>
+  <a href="#item3" className="btn btn-xs">3</a>
+  <a href="#item4" className="btn btn-xs">4</a>
+</div>
+   </>
+   
   );
 };
 

@@ -2,6 +2,7 @@ import React, { use, useEffect, useState } from 'react';
 import Tables from '../../component/childComponent/Tables';
 import AuthContext from '../../auth/context/AuthContext';
 import BookingTable from '../../component/childComponent/BookingTable';
+import Review from '../../component/childComponent/Review';
 
 
 const MyBooking = () => {
@@ -27,10 +28,16 @@ const MyBooking = () => {
 
   return (
     <>
-      <div className='w-11/12 mx-auto items-center flex justify-center my-10'>
+     <div>
+       <div className='w-11/12 mx-auto items-center flex justify-center my-10'>
        <BookingTable service={service}></BookingTable>
-          </div>
-      
+      </div>
+      <div>
+       {
+        service.map(revie =>  <Review key={revie._id} id={revie._id} user={user}></Review>)
+       }
+      </div>
+     </div>
     </>
   );
 };

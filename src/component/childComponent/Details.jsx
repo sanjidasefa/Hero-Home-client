@@ -64,7 +64,9 @@ const Details = () => {
       <Toaster></Toaster>
       {/* const {title,rating,image,price, createdBy} = service */}
       <div className='flex flex-col lg:flex-row  gap-10'>
-        <img src={service.image} alt="" className='border-8 border-green-300 rounded-xl' />
+       <div>
+         <img src={service.image} alt="" className='border-8 border-green-300 rounded-xl' />
+       </div>
       <div>
        
          <span className='text-sm text-blue-900 font-semibold bg-green-200 px-4 py-2 rounded-lg '>{service.category}</span>

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import { auth } from '../../firebase/firebase.config';
 import toast from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
-
+import { FaRegEdit } from "react-icons/fa";
 
 const MyProfile = () => {
    const [modal , setModal] = useState(false)
@@ -74,12 +74,12 @@ const MyProfile = () => {
         </div>
        
 
-         <button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=> setModal(true)}>Edit Profile</button>
+         <button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=> setModal(true)}><FaRegEdit />Edit Profile</button>
 {
   modal && (
     <dialog open id="my_modal_5" className=" modal modal-bottom sm:modal-middle">
   <div className="modal-box bg-green-400 border-2 border-blue-900 text-white">
-    <h3 className="font-bold text-blue-900 text-lg"> Edit Profile</h3>
+    <h3 className="font-bold text-blue-900 text-lg"><FaRegEdit /> Edit Profile</h3>
     
     <div>
       <form onSubmit={handleEdit} >

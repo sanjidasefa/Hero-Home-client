@@ -3,13 +3,17 @@ import { Link } from 'react-router';
 import styled from 'styled-components';
 import { GrMoney } from "react-icons/gr";
 import { FcRating } from "react-icons/fc";
+import { MdMailOutline } from "react-icons/md";
+import * as motion from "motion/react-client"
 
 const Card = ({service}) => {
    //console.log(service)
    const {title,rating,image,price,_id} = service
   return (
      <StyledWrapper>
-      <div className="card">
+      <motion.div   initial={{ rotate: 0 }}
+      animate={{ rotate: 360 }}
+      transition={{ duration: 0.8 }} className="card">
         <div className="card2 p-3">
           <img src={image} alt="" className='h-[180px] w-full rounded-xl mb-2'/>
           <div className='flex justify-between text-blue-900'>
@@ -19,11 +23,11 @@ const Card = ({service}) => {
           <h1 className='text-green-400 font-semibold flex'><GrMoney className='mr-2'/>${price}</h1>
           <p className='my-3 text-blue-700 '>{service.description}</p>
          
-          <p className='text-green-400 text-sm'>{service.email}</p>
+          <p className='text-green-400 text-sm items-center flex gap-2'><MdMailOutline />{service.email}</p>
            
           <Link to={`/Service-Details/${_id}`} className="btn mt-3 w-full text-lg bg-green-400 text-white font-medium rounded-2xl">Service-Details</Link>
         </div>
-      </div>
+      </motion.div>
     </StyledWrapper>
   );
 }
