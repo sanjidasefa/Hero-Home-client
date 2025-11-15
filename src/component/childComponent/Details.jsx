@@ -8,6 +8,7 @@ import AuthContext from '../../auth/context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Review from './Review';
 
+
 const Details = () => {
   const {user ,loader} = use(AuthContext)
   const [modal , setModal] = useState(false)
@@ -47,12 +48,14 @@ const Details = () => {
     })
     .then(res=> res.json())
     .then(() =>{
-      toast.success('added')
+      toast.success('Your Service is Booked')
       setModal(false)
       e.target.reset()
     // console.log(data)
      })
-      .catch(err => console.log(err))
+      .catch(err => {
+        toast.error('Please Try Again')
+        console.log(err)})
   }
 
   if(loading || loader ){
@@ -171,9 +174,11 @@ const Details = () => {
   )
 }      
      <Review id={service._id} user={user}></Review>
+    
       </div>
     
       </div>
+
     </div>
   );
 };

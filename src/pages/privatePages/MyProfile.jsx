@@ -3,7 +3,7 @@ import AuthContext from '../../auth/context/AuthContext';
 import profile from '../../assets/profile.png'
 import { Link } from 'react-router';
 import { auth } from '../../firebase/firebase.config';
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
 import { FaRegEdit } from "react-icons/fa";
 
@@ -38,6 +38,7 @@ const MyProfile = () => {
 
   return (
     <>
+    <Toaster></Toaster>
       <div className="py-5">
         <div className="">
           <div className="flex rounded-2xl justify-between items-center gap-6 bg-green-400 p-5">

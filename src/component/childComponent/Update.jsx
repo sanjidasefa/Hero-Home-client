@@ -1,4 +1,5 @@
 import React, { } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import { useLoaderData, useNavigate } from 'react-router';
 
 const Update = () => {
@@ -24,6 +25,7 @@ const Update = () => {
   })
   .then(res=> res.json())
   .then(data =>{
+    toast.success('Service Updated')
     nevigate('/service')
     console.log(data)
   })
@@ -31,6 +33,7 @@ const Update = () => {
   }
   return (
     <div>
+      <Toaster></Toaster>
        <div className='my-10'>
        <h1 className='text-center text-blue-900  font-bold text-3xl'>Update-Your-service</h1>
        <p className='text-center text-green-400 my-5 text-xl'>Update your service details to ensure customers always get the latest and most accurate info.</p>

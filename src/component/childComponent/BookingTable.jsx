@@ -4,6 +4,7 @@ import AuthContext from '../../auth/context/AuthContext';
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { Link } from 'react-router';
+import toast from 'react-hot-toast';
 
 const BookingTable = () => {
    const {user} = use(AuthContext)
@@ -40,7 +41,7 @@ const BookingTable = () => {
       if(data.deletedCount>0){
         setService(table => table.filter(item=> item._id !== id))
       }
-     
+     toast.success('Your Bokking is Cancelled')
       
     })
     .catch(err => console.log(err))
