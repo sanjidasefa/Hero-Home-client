@@ -62,6 +62,12 @@ const Details = () => {
     return <div className='w-11/12 m-auto items-center flex justify-center p-40'><span className="loading bg-blue-900 loading-bars loading-xl"></span></div>
   }
 
+  const reviewLoad = ()=>{
+    fetch(`https://hero-home-neon.vercel.app/Service/${id}`)
+    .then((res)=> res.json())
+    .then(data => setService(data))
+  }
+
   return (
     <div className='my-10'>
       <Toaster></Toaster>
@@ -172,7 +178,7 @@ const Details = () => {
 </dialog>
   )
 }      
-     <Review id={service._id} user={user}></Review>
+     <Review id={service._id} user={user} reviewLoad={reviewLoad}></Review>
     
       </div>
     
