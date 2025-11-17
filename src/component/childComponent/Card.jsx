@@ -14,7 +14,7 @@ const Card = ({service}) => {
       <motion.div   initial={{ rotate: 0 }}
       animate={{ rotate: 360 }}
       transition={{ duration: 0.8 }} className="card">
-        <div className="card2 p-3">
+        <div className="card2 p-3 shadow-2xl">
           <img src={image} alt="" className='h-[180px] w-full rounded-xl mb-2'/>
           <div className='flex justify-between text-blue-900'>
             <h1 className='text-xl font-semibold'>{title}</h1>
@@ -24,8 +24,10 @@ const Card = ({service}) => {
           <p className='my-3 text-blue-700 '>{service.description}</p>
          
           <p className='text-green-400 text-sm items-center flex gap-2'><MdMailOutline />{service.email}</p>
-           
-          <Link to={`/Service-Details/${_id}`} className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3">Service-Details</Link>
+
+             
+          <Link to={`/Service-Details/${_id}`} className="btn  text-lg bg-green-400 text-white w-full rounded-2xl mt-3">Service-Details</Link>
+
         </div>
       </motion.div>
     </StyledWrapper>

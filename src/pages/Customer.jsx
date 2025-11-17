@@ -3,10 +3,10 @@ import Chart from '../component/childComponent/Chart';
 const Customer = () => {
   return (
     <div>
-              <div className=' flex gap-5 flex-col lg:flex-row mb-10'>
+              <div className=' flex  gap-5 flex-col lg:flex-row mb-10'>
             <div>
                <h1 className='text-green-400 text-xl font-semibold my-5'>Service Performace Overview :</h1>
-      <div className='flex justify-center items-center'>
+      <div className='flex justify-center items-center mt-10'>
               <Chart/>
       </div>
             </div>

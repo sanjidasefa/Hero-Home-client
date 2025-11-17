@@ -6,7 +6,7 @@ const Chart = () => {
   const uData = [3000, 6000, 4500, 7000, 5000];
   const xLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
   return (
-    <div>
+    <div className='mt-5 shadow-2xl'>
           <BarChart
       width={600}
       height={350}

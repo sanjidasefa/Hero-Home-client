@@ -8,20 +8,20 @@ import { Link } from 'react-router';
 
 const Slider = () => {
    return (
-    <div>
-       <div className="carousel shadow-2xl overflow-hidden w-full">
+    <div className='w-[500px] md:w-full'>
+       <div className="carousel shadow-2xl overflow-hidden h-[60vh] w-full">
         <div id="slide1" className="carousel-item relative w-full">
          <div className="card bg-base-100 w-full image-full shadow-sm">
   <figure>
    <img
             src={slide2}
-            className="w-full h-[60vh]" />
+            className="w-full" />
   </figure>
  
    <div className="card-body flex justify-center items-center text-center">
    <div>
-     <h2  className="text-blue-900 font-bold my-3 text-3xl ">Luxury Living Starts Here</h2>
-    <p className=' text-lg'>Experience the perfect blend of architecture, style, and sophistication in our premium duplex homes.</p>
+     <h2  className="text-blue-900 text-2xl font-bold my-3 lg:text-3xl ">Luxury Living Starts Here</h2>
+    <p className='text-sm lg:text-lg'>Experience the perfect blend of architecture, style, and sophistication in our premium duplex homes.</p>
      <Link to='/Service' className="btn w-1/3 text-lg bg-green-400 text-white  rounded-2xl mt-3">Explore More</Link>
    </div>
   </div>
