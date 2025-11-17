@@ -10,7 +10,7 @@ const Tables = () => {
   const [service,setService]= useState([])
   
   useEffect(()=>{
-    fetch(`http://localhost:3000/my-Services/${encodeURIComponent(user.email)}`,{
+    fetch(`https://hero-home-neon.vercel.app/my-Services/${encodeURIComponent(user.email)}`,{
       headers:{
         autorization : `bearar ${user.accessToken}`
       }
@@ -28,7 +28,7 @@ const Tables = () => {
   
   const handleDelate = (id)=>{
     console.log(id)
-    fetch(`http://localhost:3000/Service/${id}`,{
+    fetch(`https://hero-home-neon.vercel.app/Service/${id}`,{
       method : "DELETE" ,
       headers : {
         'content-type' : 'application/json'
@@ -48,37 +48,40 @@ const Tables = () => {
   return (
    <>
    <div className=''>
-     <div className='overflow-x-auto shadow-lg'>
-    
-    <Table className=' min-w-full text-sm  text-white bg-green-400'>
-  <Thead>
-    <Tr className='border-2 border-blue-900'>
-     
-      <Th className=''>Title</Th>
-              <Th className='p-1 md:p-2 lg:p-3 '>Provider_Name</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Date</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Cetagory</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Price</Th>
-              
-    </Tr>
-  </Thead>
-  <Tbody>
-       {service.map((table ,index) => (
-              <Tr className=' border-2 hover:bg-blue-900 border-blue-900'  key={table._id}>
-                <Td  className='border-2  border-blue-900  p-1 md:p-2 lg:p-3'>{index+1}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.title}</Td>
-                <Td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.providerName}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.createdAt}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.category}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</Td>
-                <Td onClick={()=> handleDelate(table._id)} className='lg:flex  hover:text-green-400 items-center gap-2 p-1 md:p-2 lg:p-3 md:truncate'><RiDeleteBin5Fill />delete</Td>
-                <Td  className='lg:flex border-2  border-blue-900 hover:text-green-400 items-center gap-2 p-1 md:p-2 lg:p-3 md:truncate'><Link to={`/update-route/${table._id}`}><FaRegEdit />Edit</Link></Td>
-              </Tr>
-            ))}
-         </Tbody>
-</Table>
 
-    </div>
+<div className="overflow-x-auto shadow-lg ">
+  <table className="table table-xs">
+    <thead>
+      <tr>
+        <th></th>
+         <th className=''>Title</th>
+              <th className='p-1 md:p-2 lg:p-3 '>Provider_Name</th>
+              <th className='p-1 md:p-2 lg:p-3'>Date</th>
+              <th className='p-1 md:p-2 lg:p-3'>Cetagory</th>
+              <th className='p-1 md:p-2 lg:p-3'>Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+         {service.map((table ,index) => (
+              <tr className=' border-2 hover:bg-blue-900 border-blue-900'  key={table._id}>
+                <td  className='border-2  border-blue-900  p-1 md:p-2 lg:p-3'>{index+1}</td>
+                <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.title}</td>
+                <td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.providerName}</td>
+                <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.createdAt}</td>
+                <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.category}</td>
+                <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</td>
+                <td onClick={()=> handleDelate(table._id)} className='lg:flex  hover:text-green-400 items-center gap-2 p-1 md:p-2 lg:p-3 md:truncate'><RiDeleteBin5Fill />delete</td>
+                <td  className='lg:flex border-2  border-blue-900 hover:text-green-400 items-center gap-2 p-1 md:p-2 lg:p-3 md:truncate'><Link to={`/update-route/${table._id}`}><FaRegEdit />Edit</Link></td>
+              </tr>
+            ))}
+     
+     
+    </tbody>
+    
+  </table>
+</div>
+
    </div>
    </>
   );

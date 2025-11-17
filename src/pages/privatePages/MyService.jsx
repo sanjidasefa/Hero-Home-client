@@ -8,7 +8,7 @@ const MyService = () => {
   const [loader , setLoader] = useState(true)
   const [service,setService]= useState([])
   useEffect(()=>{
-    fetch(`http://localhost:3000/my-Services/${user.email}`,{
+    fetch(`https://hero-home-neon.vercel.app/my-Services/${user.email}`,{
       headers:{
         autorization : `bearar ${user.accessToken}`
       }

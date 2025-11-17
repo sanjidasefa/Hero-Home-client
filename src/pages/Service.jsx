@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Card from '../component/childComponent/Card';
 import { useLoaderData } from 'react-router';
 import 'animate.css';
+import ser from '../assets/service.png'
 
 const Service = () => {
   const data = useLoaderData()
@@ -9,14 +10,14 @@ const Service = () => {
   const handleSearch= e =>{
     e.preventDefault();
   
-    const search = e.target.search.value
+    const search = e.target.search.value.trim()
     
-    fetch(`http://localhost:3000/search?search=${search}`)
+    fetch(`https://hero-home-neon.vercel.app/search?search=${search}`)
     .then(res => 
       res.json()
     )
     .then(data => {
-      console.log(data)
+      // console.log(data)
       setSearchData(data)
     })
   }
@@ -48,7 +49,10 @@ const Service = () => {
   </div>
 </form>
 
-      <h1 className='text-center text-blue-900 mt-10 font-bold text-3xl'>Our All Services</h1>
+      <div className='flex gap-2 items-center justify-center'>
+        <img src={ser} alt="" className='w-15 mt-8'/>
+        <h1 className='text-center text-blue-900 mt-10 font-bold text-4xl'>Our All Service's</h1>
+      </div>
        <div className= 'animate__animated animate__backInUp grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  gap-20 my-20 '>
         
       {

@@ -16,7 +16,7 @@ const Update = () => {
   description : e.target.description.value,
   createdAt : new Date(),
   }
-  fetch(`http://localhost:3000/Service/${data._id}`,{
+  fetch(`https://hero-home-neon.vercel.app/Service/${data._id}`,{
     method: "PUT",
     headers: {
      "content-type" : "application/json"

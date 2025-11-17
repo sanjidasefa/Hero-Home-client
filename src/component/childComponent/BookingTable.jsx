@@ -1,7 +1,6 @@
 
 import React, { use, useEffect, useState } from 'react';
 import AuthContext from '../../auth/context/AuthContext';
-import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table'
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import { Link } from 'react-router';
 import toast from 'react-hot-toast';
@@ -12,7 +11,7 @@ const BookingTable = () => {
   const [service,setService]= useState([])
   
   useEffect(()=>{
-    fetch(`http://localhost:3000/My-booking/${encodeURIComponent(user.email)}`,{
+    fetch(`https://hero-home-neon.vercel.app/My-booking/${encodeURIComponent(user.email)}`,{
       headers:{
         autorization : `bearar ${user.accessToken}`
       }
@@ -30,7 +29,7 @@ const BookingTable = () => {
   
   const handleDelate = (id)=>{
     console.log(id)
-    fetch(`http://localhost:3000/Service/${id}`,{
+    fetch(`https://hero-home-neon.vercel.app/Service/${id}`,{
       method : "DELETE" ,
       headers : {
         'content-type' : 'application/json'
@@ -50,39 +49,43 @@ const BookingTable = () => {
   return (
    <>
    <div className=''>
-     <div className='overflow-x-auto shadow-lg '>
+   
+<div className="overflow-x-auto shadow-lg ">
+  <table className="table table-xs">
+    <thead>
+      <tr>
+        <th></th>
+        <th className='p-1 md:p-2 lg:p-3 '>Service Name</th>
+              <th className='p-1 md:p-2 lg:p-3 '>Customer name</th>        
+            <th className='p-1 md:p-2 lg:p-3'>Date</th>
+              <th className='p-1 md:p-2 lg:p-3'>Address</th>
+              <th className='p-1 md:p-2 lg:p-3'>Contact Number</th>
+              <th className='p-1 md:p-2 lg:p-3'>Price</th>
+              <th className='p-1 md:p-2 lg:p-3'>Contact Number</th>
+      </tr>
+    </thead>
+    <tbody>
     
-    <Table className='min-w-full text-sm  text-white bg-green-400'>
-  <Thead>
-    <Tr className='border-2 border-blue-900'>
-    
-             <Th></Th>
-            <Th className='p-1 md:p-2 lg:p-3 '>Service Name</Th>
-              <Th className='p-1 md:p-2 lg:p-3 '>Customer name</Th>
-             
-              <Th className='p-1 md:p-2 lg:p-3'>Date</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Address</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Contact Number</Th>
-              <Th className='p-1 md:p-2 lg:p-3'>Price</Th>
-    </Tr>
-  </Thead>
-  <Tbody>
-       {service.map((table ,index) => (
-              <Tr className=' border-2 hover:bg-blue-900 border-blue-900'  key={table._id}>
-                <Td  className='border-2  border-blue-900  p-1 md:p-2 lg:p-3'>{index+1}</Td>
-                <Td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.Service_name}</Td>
-                 <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.booked_by}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.bookingDate}</Td>
-              <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.address}</Td>
-             <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.number}</Td>
-                <Td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</Td>
-                <Td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 hover:text-green-400 md:truncate'><RiDeleteBin5Fill />Cancel</Td>
-              </Tr>
+        {service.map((table ,index) => (
+              <tr className=' border-2 hover:bg-blue-900 border-blue-900'  key={table._id}>
+                <td  className='border-2  border-blue-900  p-1 md:p-2 lg:p-3'>{index+1}</td>
+                <td className='border-2  border-blue-900  md:truncate  p-1 md:p-2 lg:p-3'>{table.Service_name}</td>
+                 <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.booked_by}</td>
+                <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3' >{table.bookingDate}</td>
+              <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.address}</td>
+             <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.number}</td>
+                <td className='border-2  border-blue-900 md:truncate p-1 md:p-2 lg:p-3'>{table.price}</td>
+                <td onClick={()=> handleDelate(table._id)} className='lg:flex items-center gap-2 p-1 md:p-2 lg:p-3 hover:text-green-400 md:truncate'><RiDeleteBin5Fill />Cancel</td>
+              </tr>
             ))}
-         </Tbody>
-</Table>
+     
+     
+    </tbody>
+    
+  </table>
+</div>
 
-    </div>
+   
    </div>
    </>
   );

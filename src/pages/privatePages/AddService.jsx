@@ -20,7 +20,7 @@ const AddService = () => {
   rating : 0,
   review :[],
   }
-  fetch('http://localhost:3000/Service',{
+  fetch('https://hero-home-neon.vercel.app/Service',{
     method: "POST",
     headers: {
      "content-type" : "application/json"

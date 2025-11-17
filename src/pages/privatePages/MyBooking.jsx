@@ -10,7 +10,7 @@ const MyBooking = () => {
   const [loader , setLoader] = useState(true)
   const [service,setService]= useState([])
   useEffect(()=>{
-    fetch(`http://localhost:3000/My-booking/${user.email}`,{
+    fetch(`https://hero-home-neon.vercel.app/My-booking/${user.email}`,{
       headers:{
         autorization : `bearar ${user.accessToken}`
       }
@@ -32,11 +32,7 @@ const MyBooking = () => {
        <div className='w-11/12 mx-auto items-center flex justify-center my-10'>
        <BookingTable service={service}></BookingTable>
       </div>
-      <div>
-       {
-        service.map(revie =>  <Review key={revie._id} id={revie._id} user={user}></Review>)
-       }
-      </div>
+    
      </div>
     </>
   );

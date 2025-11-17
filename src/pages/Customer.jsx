@@ -7,12 +7,10 @@ const Customer = () => {
             <div>
                <h1 className='text-green-400 text-xl font-semibold my-5'>Service Performace Overview :</h1>
       <div className='flex justify-center items-center'>
-        
-      <Chart/>
+              <Chart/>
       </div>
             </div>
-      
-      <div>
+            <div>
            <h1 className='text-green-400  text-xl font-semibold my-5'>What Our Client Say :</h1>
             <div>
         <div className="avatar-group -space-x-6">

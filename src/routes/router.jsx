@@ -21,17 +21,17 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
-        loader : ()=> fetch ('http://localhost:3000/home')
+        loader : ()=> fetch ('https://hero-home-neon.vercel.app/home')
       },
       {
         path: '/home',
         element: <Home></Home>,
-        loader : ()=> fetch ('http://localhost:3000/home')
+        loader : ()=> fetch ('https://hero-home-neon.vercel.app/home')
       },
       {
         path: '/service',
         element: <Service></Service>,
-        loader: ()=>fetch('http://localhost:3000/Service')
+        loader: ()=>fetch('https://hero-home-neon.vercel.app/Service')
       },
       {
         path: '/Add-Service',
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
       {
         path: '/update-route/:id',
         element: <Update></Update>,
-        loader: ({params})=> fetch(`http://localhost:3000/Service/${params.id}`)
+        loader: ({params})=> fetch(`https://hero-home-neon.vercel.app/Service/${params.id}`)
       },
       {
         path: '/my-profile',

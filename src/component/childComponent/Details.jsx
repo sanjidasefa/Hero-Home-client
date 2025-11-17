@@ -7,7 +7,7 @@ import { FcRating } from "react-icons/fc";
 import AuthContext from '../../auth/context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Review from './Review';
-
+import { MdMailOutline } from "react-icons/md";
 
 const Details = () => {
   const {user ,loader} = use(AuthContext)
@@ -17,7 +17,7 @@ const Details = () => {
   const [loading , setloading]  = useState(true)
   // console.log(service)
   useEffect(()=>{
-    fetch(`http://localhost:3000/Service/${id}`)
+    fetch(`https://hero-home-neon.vercel.app/Service/${id}`)
     .then(res => res.json())
     .then(data =>{
       setService(data)
@@ -39,7 +39,7 @@ const Details = () => {
      address : e.target.address.value,
      number : e.target.number.value
   }
-    fetch(`http://localhost:3000/My-booking` , {
+    fetch(`https://hero-home-neon.vercel.app/My-booking` , {
       method : 'POST',
       headers:{
           "content-type" : "application/json"
@@ -65,8 +65,7 @@ const Details = () => {
   return (
     <div className='my-10'>
       <Toaster></Toaster>
-      {/* const {title,rating,image,price, createdBy} = service */}
-      <div className='flex flex-col lg:flex-row  gap-10'>
+      <div className=' lg:px-5 flex flex-col lg:flex-row  gap-10'>
        <div>
          <img src={service.image} alt="" className='border-8 border-green-300 rounded-xl' />
        </div>
@@ -77,9 +76,9 @@ const Details = () => {
         <h1 className='text-3xl text-blue-900 mb-3 font-bold mt-5'>{service.title}</h1>
         
         <span className='text-xl font-bold text-blue-900 shadow-green-300 shadow-sm py-1 px-5 rounded-lg w-1/4 flex'><span><GrMoney className='mr-2'/></span> ${service.price}</span>
-        <div className='bg-white border-2 border-green-300  px-10 py-1 rounded-2xl my-5'>
+        <div className='bg-white border-2 border-green-300 px-10 py-1 rounded-2xl my-5'>
           <h1 className='text-2xl text-blue-900 font-bold my-2 flex gap-3'><BsFillPersonLinesFill className=''/>{service. providerName}</h1>
-          <p className='text-sm text-green-300 mb-2 '>Email :  {service.email}</p>
+          <p className='text-sm text-green-300 mb-2 flex gap-1 items-center'><MdMailOutline />Email :  {service.email}</p>
           <h2 className='text-xl text-blue-900 '>Description : </h2>
           <p className='text-lg mt-2 text-blue-700'>{service.description}</p>
           <div className='flex gap-2 justify-between items-center'>

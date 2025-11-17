@@ -8,7 +8,7 @@ const Review = ({id ,user}) => {
    const [loading , setloading]  = useState(true)
 
    useEffect(()=>{
-    fetch(`http://localhost:3000/Service/${id}`)
+    fetch(`https://hero-home-neon.vercel.app/Service/${id}`)
     .then(res => res.json())
     .then(data =>{
        setReview(data.review || [])
@@ -17,23 +17,18 @@ const Review = ({id ,user}) => {
   },[id])
   const handleReview = e =>{
     e.preventDefault()
+    const name = e.target.name.value || user.displayName
     const rating = parseFloat(e.target.rating.value)
-    let ratingValue = 0 ;
-    for(let i = 0; i<rating.length; i++){
-      if(rating[i].checked){
-        ratingValue = parseFloat(rating[i].ariaLabel);
-        console.log(ratingValue)
-      }
-    }
  const comment = e.target.comment.value 
  const newReview = {
-  name : user.displayName,
+  name ,
   photo : user.photoURL,
   email : user.email,
   rating :rating, 
   comment,
+  createdAt : new Date(),
  }
- fetch(`http://localhost:3000/Service/${id}/review` , {
+ fetch(`https://hero-home-neon.vercel.app/Service/${id}/review` , {
       method : 'POST',
       headers:{
           "content-type" : "application/json"
@@ -42,13 +37,11 @@ const Review = ({id ,user}) => {
     })
     .then(res=> res.json())
     .then(() =>{
-      toast.success('added')
-     
-      e.target.reset()
-    // console.log(data)
-    fetch(`http://localhost:3000/Service/${id}`)
+      toast.success('Your Feedback added')
+      setReview(cmt => [...cmt , newReview])
+    fetch(`https://hero-home-neon.vercel.app/Service/${id}`)
     .then(res=> res.json())
-    .then(data => setReview(data.review || []))
+    .then(data => setReview(data.review || [...reviews, newReview]))
      })
       .catch(err => console.log(err))
  }
@@ -56,7 +49,7 @@ const Review = ({id ,user}) => {
     return <div className='w-11/12 m-auto items-center flex justify-center p-40'><span className="loading bg-blue-900 loading-bars loading-xl"></span></div>
   }
   return (
-    <div>
+    <div className=''>
       <Toaster></Toaster>
       <h1 className='text-blue-900 text-xl font-semibold my-5'>Submit your Feedback : </h1>
       {
@@ -94,11 +87,7 @@ const Review = ({id ,user}) => {
           <input key={n} value={n} type="radio" name="rating" className="mask mask-star-2 bg-orange-400" aria-label={n} />
     ))
   }
-  {/* <input type="radio" name="rating" className="mask mask-star-2 bg-orange-400" aria-label="1 star" />
-  
-  <input type="radio" name="rating" className="mask mask-star-2 bg-orange-400" aria-label="3 star" />
-  <input type="radio" name="rating" className="mask mask-star-2 bg-orange-400" aria-label="4 star" />
-  <input type="radio" name="rating" className="mask mask-star-2 bg-orange-400" aria-label="5 star" /> */}
+ 
 </div>
              </div>
              </div>

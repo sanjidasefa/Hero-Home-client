@@ -123,7 +123,8 @@ const Navber = () => {
            
              
             </div>
-            <ul
+            {
+              user && <ul
               tabIndex="-1"
               className="dropdown-content menu bg-blue-900 text-white rounded-box z-1  w-22 p-1 shadow-sm"
             >
@@ -144,6 +145,7 @@ const Navber = () => {
                 <li>Log-out</li>
               </Link>
             </ul>
+            }
           </div>
         </div>
       </div>
