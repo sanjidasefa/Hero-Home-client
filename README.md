@@ -5,7 +5,7 @@ The platform allows users to explore available services, view detailed informati
 Service providers can easily manage their listings, prices, and booking requests.
 With a clean interface, secure authentication, and real-time booking management, HomeHero ensures a smooth and efficient experience for both customers and providers.
 
-Live Link URL : 
+Live Link URL : https://clientsideherohome.netlify.app/
 
 Key Features :
     - Service Listing Nd category filter
