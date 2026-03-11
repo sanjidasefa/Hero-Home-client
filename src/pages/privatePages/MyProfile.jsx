@@ -1,128 +1,159 @@
 import React, { use, useState } from 'react';
 import AuthContext from '../../auth/context/AuthContext';
 import profile from '../../assets/profile.png'
-import { Link } from 'react-router';
 import { auth } from '../../firebase/firebase.config';
 import toast, { Toaster } from 'react-hot-toast';
 import { updateProfile } from 'firebase/auth';
-import { FaRegEdit } from "react-icons/fa";
+import { FaRegEdit, FaEnvelope, FaClock, FaHistory } from "react-icons/fa";
+import { motion, AnimatePresence } from 'framer-motion';
 
 const MyProfile = () => {
-   const [modal , setModal] = useState(false)
-   const { user ,setUser } = use(AuthContext);
+  const [modal, setModal] = useState(false);
+  const { user, setUser } = use(AuthContext);
 
- const handleEdit = e => {
+  const handleEdit = e => {
     e.preventDefault();
-        const  name = e.target.name.value;
-   const photo = e.target.photo.value;
-   if(!auth.currentUser){
-    return;
-   }
-   updateProfile(auth.currentUser,{
-    displayName : name ,
-    photoURL : photo
-   }).then(()=>{
-     toast.success('Profile Updated Successfully')
-     const update = auth.currentUser
-     setUser({...update})
-     setModal(false)
-     e.target.reset()
-   })
-   .catch(err=>{
-    toast.error('Update Failed')
-    console.log(err)
-    e.target.reset()
-   })
-      
-  }
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
+
+    if (!auth.currentUser) return;
+
+    updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo
+    }).then(() => {
+      toast.success('Profile Updated Successfully');
+      setUser({ ...auth.currentUser });
+      setModal(false);
+    })
+      .catch(err => {
+        toast.error('Update Failed');
+        console.error(err);
+      });
+  };
 
   return (
-    <>
-    <Toaster></Toaster>
-      <div className="py-5">
-        <div className="">
-          <div className="flex rounded-2xl justify-between items-center gap-6 bg-green-400 p-5">
-           <div className='flex justify-center items-center gap-2'>
-             <img
-              className="w-20 h-20 rounded-full"
-              src={user?.photoURL || profile}
-              alt=""
-            />
-            <div className=''>
-              <h1 className="text-2xl font-bold mt-3 capitalize">
-                {user?.displayName || "anonymous peticipate"}
+    <div className="max-w-4xl mx-auto py-10 px-4">
+      <Toaster />
+
+      {/* Profile Card Header */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-base-100 border border-base-300 shadow-2xl rounded-[2.5rem] overflow-hidden"
+      >
+        <div className="h-32 bg-gradient-to-r from-primary to-blue-600"></div>
+        
+        <div className="px-6 pb-8">
+          <div className="relative flex flex-col md:flex-row items-center md:items-end gap-6 -mt-16 mb-6">
+            <div className="relative">
+              <img
+                className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-base-100 shadow-xl object-cover bg-base-200"
+                src={user?.photoURL || profile}
+                alt="Profile"
+              />
+              <button 
+                onClick={() => setModal(true)}
+                className="absolute bottom-2 right-2 p-3 bg-primary text-white rounded-full shadow-lg hover:scale-110 transition-transform"
+              >
+                <FaRegEdit />
+              </button>
+            </div>
+            
+            <div className="flex-1 text-center md:text-left pt-2">
+              <h1 className="text-3xl font-black text-base-content capitalize tracking-tight">
+                {user?.displayName || "Anonymous User"}
               </h1>
-              <p className=" text-sm my-3 ">
-                Email : <span className='text-blue-900 '> {user?.email}</span>
-              </p>
-              
+              <div className="flex items-center justify-center md:justify-start gap-2 mt-1 text-base-content/60">
+                <FaEnvelope className="text-primary" />
+                <span className="font-medium">{user?.email}</span>
+              </div>
             </div>
-           </div>
-             <p>
-               Account Created_at : {new Date(user.metadata?.creationTime).toLocaleString()}
-              </p>
-              
-               </div>
-                    <p className='text-blue-900 text-sm text-end my-3'>
-               last Login : {new Date(user.metadata?.lastSignInTime).toLocaleString()}
-              </p> 
-            <div>
-              
-              
-             
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-base-200 pt-6">
+            <div className="flex items-center gap-3 p-4 bg-base-200/50 rounded-2xl">
+              <FaClock className="text-primary text-xl" />
+              <div>
+                <p className="text-[10px] uppercase font-bold opacity-50">Account Created</p>
+                <p className="text-sm font-semibold">{new Date(user.metadata?.creationTime).toLocaleDateString()}</p>
+              </div>
             </div>
-         
+            <div className="flex items-center gap-3 p-4 bg-base-200/50 rounded-2xl">
+              <FaHistory className="text-primary text-xl" />
+              <div>
+                <p className="text-[10px] uppercase font-bold opacity-50">Last Active</p>
+                <p className="text-sm font-semibold">{new Date(user.metadata?.lastSignInTime).toLocaleString()}</p>
+              </div>
+            </div>
+          </div>
         </div>
-       
+      </motion.div>
 
-         <button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" onClick={()=> setModal(true)}><FaRegEdit />Edit Profile</button>
-{
-  modal && (
-    <dialog open id="my_modal_5" className=" modal modal-bottom sm:modal-middle">
-  <div className="modal-box bg-green-400 border-2 border-blue-900 text-white">
-    <h3 className="font-bold text-blue-900 text-lg"><FaRegEdit /> Edit Profile</h3>
-    
-    <div>
-      <form onSubmit={handleEdit} >
-        <div className=" text-2xl w-[400px] px-4"> 
-          <label className="label mr-3 text-blue-900 text-sm my-2">
-             Name :{" "}
-            </label>
-            <input
-              type="text"
-              className="input textarea-info bg-white text-blue-900"
-              name="name"
-              placeholder=" Enter your name"
-               defaultValue={user?.displayName || ''}
-            />
-         <label className="label  text-blue-900 text-sm my-2">
-              Photo URL :{" "}
-            </label>
-            <input
-              type="text"
-              className="input textarea-info bg-white text-blue-900"
-              name="photo"
-              placeholder=" Enter your Photo URL"
-              defaultValue={user.photoURL ||''}
-            />
+      {/* Edit Modal */}
+      <AnimatePresence>
+        {modal && (
+          <dialog open className="modal modal-middle bg-black/60 backdrop-blur-sm transition-all">
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="modal-box bg-base-100 border border-base-300 rounded-[2rem] p-8"
+            >
+              <h3 className="font-black text-2xl flex items-center gap-2 mb-6 text-primary">
+                <FaRegEdit /> Update Profile
+              </h3>
+              
+              <form onSubmit={handleEdit} className="space-y-4">
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-bold opacity-70">Display Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    defaultValue={user?.displayName || ''}
+                    className="input input-bordered bg-base-200 focus:outline-primary font-semibold"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text font-bold opacity-70">Photo URL</span>
+                  </label>
+                  <input
+                    type="text"
+                    name="photo"
+                    defaultValue={user?.photoURL || ''}
+                    className="input input-bordered bg-base-200 focus:outline-primary font-semibold"
+                    placeholder="Enter image URL"
+                  />
+                </div>
 
-        </div>
-          <div className="modal-action">
-        <button type='button' className='btn  text-lg bg-green-400 text-white rounded-2xl mt-3' onClick={()=> setModal(false)} >Cancel</button>
-        <button type='submit' className='btn  text-lg bg-green-400 text-white  rounded-2xl mt-3' >Save Changes</button>
+                <div className="modal-action gap-3">
+                  <button 
+                    type='button' 
+                    className='btn btn-ghost rounded-xl' 
+                    onClick={() => setModal(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type='submit' 
+                    className='btn btn-primary px-8 rounded-xl shadow-lg shadow-primary/20'
+                  >
+                    Save Changes
+                  </button>
+                </div>
+              </form>
+            </motion.div>
+          </dialog>
+        )}
+      </AnimatePresence>
     </div>
-      </form>
-    </div>
-  
-  </div>
-</dialog>
-  )
-}
-
-      </div>
-    </>
   );
 };
-
 
 export default MyProfile;

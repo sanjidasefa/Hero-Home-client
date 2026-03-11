@@ -1,189 +1,211 @@
-import React, {  use, useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router';
-import { BsFillPersonLinesFill } from "react-icons/bs";
+import React, { use, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
+import { BsFillPersonLinesFill, BsCalendarCheck, BsGeoAlt, BsTelephone } from "react-icons/bs";
 import { GrMoney } from "react-icons/gr";
 import { CiTimer } from "react-icons/ci";
 import { FcRating } from "react-icons/fc";
+import { MdMailOutline, MdCategory } from "react-icons/md";
 import AuthContext from '../../auth/context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import Review from './Review';
-import { MdMailOutline } from "react-icons/md";
 
 const Details = () => {
-  const {user ,loader} = use(AuthContext)
-  const [modal , setModal] = useState(false)
-  const {id }=useParams()
-  const [service , setService ] = useState([])
-  const [loading , setloading]  = useState(true)
-  // console.log(service)
-  useEffect(()=>{
+  const { user, loader } = use(AuthContext);
+  const [modal, setModal] = useState(false);
+  const { id } = useParams();
+  const [service, setService] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
     fetch(`https://hero-home-neon.vercel.app/Service/${id}`)
-    .then(res => res.json())
-    .then(data =>{
-      setService(data)
-      setloading(false)
-    })
-  },[id])
-  
-  const handleBook = e => {
+      .then(res => res.json())
+      .then(data => {
+        setService(data);
+        setLoading(false);
+      });
+  }, [id]);
+
+  const handleBook = async (e) => {
     e.preventDefault();
-    if(!user){
-      toast.error('user not availavail')
-    }
+    if (!user) return toast.error('Please login to book');
+
+    const form = e.target;
     const addBooking = {
-     Service_name : service.title,
-      bookingID : service._id,
-     price : service.price,
-    booked_by : user?.email || '',
-     bookingDate : e.target.date.value,
-     address : e.target.address.value,
-     number : e.target.number.value
-  }
-    fetch(`https://hero-home-neon.vercel.app/My-booking` , {
-      method : 'POST',
-      headers:{
-          "content-type" : "application/json"
-      },
-      body : JSON.stringify(addBooking)
-    })
-    .then(res=> res.json())
-    .then(() =>{
-      toast.success('Your Service is Booked')
-      setModal(false)
-      e.target.reset()
-    // console.log(data)
-     })
-      .catch(err => {
-        toast.error('Please Try Again')
-        console.log(err)})
+      Service_name: service.title,
+      bookingID: service._id,
+      price: service.price,
+      booked_by: user?.email,
+      bookingDate: form.date.value,
+      address: form.address.value,
+      number: form.number.value,
+      status: 'pending' // Professional practice: always track status
+    };
+
+    try {
+      const res = await fetch(`https://hero-home-neon.vercel.app/My-booking`, {
+        method: 'POST',
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(addBooking)
+      });
+      if (res.ok) {
+        toast.success('Your Service is Booked Successfully!');
+        setModal(false);
+        form.reset();
+      }
+    } catch (err) {
+      toast.error('Booking failed. Please try again.');
+    }
+  };
+
+  if (loading || loader) {
+    return (
+      <div className='min-h-screen flex justify-center items-center'>
+        <span className="loading loading-bars loading-lg text-primary"></span>
+      </div>
+    );
   }
 
-  if(loading || loader ){
-    return <div className='w-11/12 m-auto items-center flex justify-center p-40'><span className="loading bg-blue-900 loading-bars loading-xl"></span></div>
-  }
-
-  const reviewLoad = ()=>{
+  const reviewLoad = () => {
     fetch(`https://hero-home-neon.vercel.app/Service/${id}`)
-    .then((res)=> res.json())
-    .then(data => setService(data))
-  }
+      .then(res => res.json())
+      .then(data => setService(data));
+  };
 
   return (
-    <div className='my-10'>
-      <Toaster></Toaster>
-      <div className=' lg:px-5 flex flex-col lg:flex-row  gap-10'>
-       <div>
-         <img src={service.image} alt="" className='border-8 border-green-300 rounded-xl' />
-       </div>
-      <div>
-       
-         <span className='text-sm text-blue-900 font-semibold bg-green-200 px-4 py-2 rounded-lg '>{service.category}</span>
+    <div className='max-w-7xl mx-auto px-4 py-10'>
+      <Toaster position="top-center" />
       
-        <h1 className='text-3xl text-blue-900 mb-3 font-bold mt-5'>{service.title}</h1>
-        
-        <span className='text-xl font-bold text-blue-900 shadow-green-300 shadow-sm py-1 px-5 rounded-lg w-1/4 flex'><span><GrMoney className='mr-2'/></span> ${service.price}</span>
-        <div className='bg-white border-2 border-green-300 px-10 py-1 rounded-2xl my-5'>
-          <h1 className='text-2xl text-blue-900 font-bold my-2 flex gap-3'><BsFillPersonLinesFill className=''/>{service. providerName}</h1>
-          <p className='text-sm text-green-300 mb-2 flex gap-1 items-center'><MdMailOutline />Email :  {service.email}</p>
-          <h2 className='text-xl text-blue-900 '>Description : </h2>
-          <p className='text-lg mt-2 text-blue-700'>{service.description}</p>
-          <div className='flex gap-2 justify-between items-center'>
-   <p className='text-sm text-blue-900  my-5 flex items-center justify-center gap-2'><FcRating></FcRating>{service.rating}</p>
-  <p className='text-sm text-blue-900  my-5 flex items-center justify-center gap-2'><CiTimer />{service.createdAt}</p>
+      <div className='grid grid-cols-1 lg:grid-cols-2 gap-12'>
+        {/* Left: Featured Image */}
+        <div className='animate__animated animate__fadeInLeft'>
+          <div className="relative group">
+            <img 
+              src={service.image} 
+              alt={service.title} 
+              className='w-full h-[400px] md:h-[500px] object-cover rounded-3xl shadow-2xl border-4 border-base-200' 
+            />
+            <div className="absolute top-4 left-4">
+              <span className='badge badge-primary p-4 gap-2 font-bold'>
+                <MdCategory /> {service.category}
+              </span>
+            </div>
           </div>
-         
         </div>
-         
-<button className="btn  text-lg bg-green-400 text-white  rounded-2xl mt-3" disabled={service.email === user.email} onClick={()=> setModal(true)}>Book Now</button>
-{
-  modal && (
-    <dialog open id="my_modal_5" className=" modal modal-bottom sm:modal-middle">
-  <div className="modal-box bg-green-400 border-2 border-blue-900 text-white">
-    <h3 className="font-bold text-blue-900 text-lg"> Fill The Form For Book Our Service</h3>
-    <p className="py-4 text-2xl">{service.title}</p>
-    <div>
-      <form onSubmit={handleBook} >
-        <div className=" text-2xl w-[400px] px-4"> 
-          <label className="label mr-3 text-blue-900 text-sm my-2">
-             E-mail :{" "}
-            </label>
-            <input
-              type="text"
-              className="input textarea-info bg-white text-blue-900"
-              name="email"
-              placeholder=" example@gmail.com"
-              value={user?.email || ''}
-              readOnly
-            />
-          <label className="label mr-3 text-blue-900 text-sm my-2">
-             Service ID :{" "}
-            </label>
-            <input
-              type="text"
-              className="input textarea-info bg-white text-blue-900"
-              name="bookingID"
-              defaultValue={service._id}
-              placeholder="Enter SErvice ID"
-            />
-        <label className="label mr-3 text-blue-900 text-sm my-2">
-             Price :{" "}
-            </label>
-            <input
-              type="text"
-              className="input textarea-info bg-white text-blue-900"
-              name="price"
-              defaultValue={service.price}
-              placeholder=" Service Price"
-            />
-        <label className="label mr-3 text-blue-900 text-sm my-2">
-             Booking Date :{" "}
-            </label>
-            <input
-              type="date"
-              className="input textarea-info bg-white text-blue-900"
-              name="date"
-              required
-              placeholder=" yy/mm/dd"
-            />
-        <label className="label mr-3 text-blue-900 text-sm my-2">
-            Address : {" "}
-            </label>
-            <input
-              type="text"
-              required
-              className="input textarea-info bg-white text-blue-900"
-              name="address"
-              placeholder="Enter your Home Address"
-            />
-        <label className="label mr-3 text-blue-900 text-sm my-2">
-            Contact Number : {" "}
-            </label>
-            <input
-            required
-              type="text"
-              className="input textarea-info bg-white text-blue-900"
-              name="number"
-              placeholder="Enter yourContact Number"
-            />
 
+        {/* Right: Service Details */}
+        <div className='flex flex-col animate__animated animate__fadeInRight'>
+          <h1 className='text-4xl font-black text-base-content mb-4 tracking-tight'>
+            {service.title}
+          </h1>
+          
+          <div className='flex items-center gap-4 mb-6'>
+            <div className='text-3xl font-bold text-primary flex items-center'>
+              <GrMoney className='mr-2 text-2xl'/> ${service.price}
+            </div>
+            <div className="divider divider-horizontal"></div>
+            <div className='flex items-center gap-1 font-semibold text-lg'>
+              <FcRating /> {service.rating}
+            </div>
+          </div>
+
+          {/* Provider Card */}
+          <div className='bg-base-200 p-6 rounded-3xl mb-8 border border-base-300'>
+            <h3 className='text-sm uppercase tracking-widest text-slate-500 font-bold mb-4'>Service Provider</h3>
+            <div className='flex items-center gap-4 mb-4'>
+              <div className="avatar placeholder">
+                <div className="bg-primary text-primary-content rounded-full w-12">
+                  <span className="text-xl uppercase">{service.providerName?.charAt(0)}</span>
+                </div>
+              </div>
+              <div>
+                <h2 className='text-xl font-bold text-base-content flex items-center gap-2'>
+                  {service.providerName}
+                </h2>
+                <p className='text-sm opacity-70 flex items-center gap-1'>
+                  <MdMailOutline /> {service.email}
+                </p>
+              </div>
+            </div>
+            <div className="divider opacity-50"></div>
+            <h4 className='font-bold mb-2'>Service Description</h4>
+            <p className='text-base-content/80 leading-relaxed'>{service.description}</p>
+            
+            <div className='mt-6 flex gap-4 text-xs opacity-60'>
+              <span className='flex items-center gap-1'><CiTimer /> Added: {new Date(service.createdAt).toLocaleDateString()}</span>
+            </div>
+          </div>
+
+          <button 
+            className="btn btn-primary btn-lg rounded-2xl shadow-lg hover:shadow-primary/20" 
+            disabled={service.email === user?.email}
+            onClick={() => setModal(true)}
+          >
+            {service.email === user?.email ? "This is your service" : "Book This Service"}
+          </button>
         </div>
-          <div className="modal-action">
-        <button type='button' className='btn  text-lg bg-green-400 text-white rounded-2xl mt-3' onClick={()=> setModal(false)} >Close</button>
-        <button type='submit' className='btn  text-lg bg-green-400 text-white  rounded-2xl mt-3' >book Now</button>
-    </div>
-      </form>
-    </div>
-  
-  </div>
-</dialog>
-  )
-}      
-     <Review id={service._id} user={user} reviewLoad={reviewLoad}></Review>
-    
-      </div>
-    
       </div>
 
+      <div className="mt-20">
+        <Review id={service._id} user={user} reviewLoad={reviewLoad} />
+      </div>
+
+      {/* Professional Booking Modal */}
+      {modal && (
+        <div className="modal modal-open">
+          <div className="modal-box max-w-lg rounded-3xl border border-primary/20">
+            <button 
+              className="btn btn-sm btn-circle btn-ghost absolute right-4 top-4"
+              onClick={() => setModal(false)}
+            >✕</button>
+            
+            <h3 className="text-2xl font-black text-center mb-2">Book Service</h3>
+            <p className="text-center opacity-60 mb-6">Complete the details below to schedule</p>
+            
+            <form onSubmit={handleBook} className="space-y-4">
+              <div className="form-control">
+                <label className="label font-bold text-xs uppercase opacity-70">Contact Details</label>
+                <div className="join w-full">
+                  <span className="btn join-item pointer-events-none"><MdMailOutline /></span>
+                  <input type="text" className="input input-bordered join-item w-full" value={user?.email} readOnly />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="form-control">
+                  <label className="label font-bold text-xs uppercase opacity-70">Price</label>
+                  <input type="text" className="input input-bordered" value={`$${service.price}`} readOnly />
+                </div>
+                <div className="form-control">
+                  <label className="label font-bold text-xs uppercase opacity-70">Schedule Date</label>
+                  <input type="date" name="date" className="input input-bordered focus:border-primary" required />
+                </div>
+              </div>
+
+              <div className="form-control">
+                <label className="label font-bold text-xs uppercase opacity-70">Location Address</label>
+                <div className="join w-full">
+                  <span className="btn join-item pointer-events-none"><BsGeoAlt /></span>
+                  <input type="text" name="address" className="input input-bordered join-item w-full" placeholder="Street, City, Zip Code" required />
+                </div>
+              </div>
+
+              <div className="form-control">
+                <label className="label font-bold text-xs uppercase opacity-70">Phone Number</label>
+                <div className="join w-full">
+                  <span className="btn join-item pointer-events-none"><BsTelephone /></span>
+                  <input type="tel" name="number" className="input input-bordered join-item w-full" placeholder="017XXXXXXXX" required />
+                </div>
+              </div>
+
+              <div className="modal-action grid grid-cols-2 gap-4">
+                <button type='button' className='btn btn-outline rounded-xl' onClick={() => setModal(false)}>Cancel</button>
+                <button type='submit' className='btn btn-primary rounded-xl'>Confirm Booking</button>
+              </div>
+            </form>
+          </div>
+          <div className="modal-backdrop bg-black/40" onClick={() => setModal(false)}></div>
+        </div>
+      )}
     </div>
   );
 };

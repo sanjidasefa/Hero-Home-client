@@ -1,156 +1,99 @@
-import React, { use} from "react";
-import { BsPersonCircle } from "react-icons/bs";
-import { Link } from "react-router";
+import React, { use, useState, useEffect } from "react";
+import { Link, NavLink } from "react-router";
+import { BsSunFill, BsMoonStarsFill } from "react-icons/bs";
 import AuthContext from "../auth/context/AuthContext";
-import profile from '../assets/profile.png'
-import { GoMoon } from "react-icons/go";
-import { BsSunFill } from "react-icons/bs";
-const Navber = () => {
-   const { user ,signOutProfile } = use(AuthContext);
-   const handleLogOut= ()=>{
-    signOutProfile()
-   }
-  const handleThemes = (checked) => {
-    const html = document.querySelector('html')
-    if(checked){
-      html.setAttribute('data-theme', 'dark')
+import profilePlaceholder from '../assets/profile.png';
+
+const Navbar = () => {
+  const { user, signOutProfile } = use(AuthContext);
+  const [isDark, setIsDark] = useState(localStorage.getItem('theme') === 'dark');
+
+  // Handle Theme Persistence
+  useEffect(() => {
+    const html = document.documentElement;
+    if (isDark) {
+      html.setAttribute('data-theme', 'dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      html.setAttribute('data-theme', 'light');
+      localStorage.setItem('theme', 'light');
     }
-    else{
-      html.setAttribute('data-theme', 'light')
-    }
-  }
-  
-   return (
+  }, [isDark]);
+
+  const navLinks = (
     <>
-      <div className="navbar w-full h-20 bg-white  shadow-green-400 shadow-sm px-10 lg:px-20 ">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5  text-blue-950"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {" "}
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h8m-8 6h16"
-                />{" "}
-              </svg>
-            </div>
-            <ul
-              tabIndex="-1"
-              className="menu menu-sm dropdown-content  bg-blue-900 text-white rounded-box z-1 mt-3 w-30 p-2 shadow"
-            >
-              <Link to="/home">
-                <li>Home</li>
-              </Link>
-              <Link to="/service">
-                <li>Service</li>
-              </Link>
-              <Link to="/Add-Service">
-                <li>Add Service</li>
-              </Link>
-            </ul>
-          </div>
-          <Link
-            to="/home"
-            className="flex justify-center items-center text-blue-950 font-bold text-2xl"
-          >
-            <img src="/logo.jpg" alt="" className="h-15 " />
-            <h1>Hero-Home</h1>
-          </Link>
-        </div>
-        <div className="navbar-center text-blue-900   hidden lg:flex">
-          <ul className="menu menu-horizontal   text-lg gap-2 px-1">
-            <Link to="/home">
-              <li>Home</li>
-            </Link>
-            <Link to="/service">
-              <li>Service</li>
-            </Link>
-            {
-              user? <Link to="/Add-Service">
-              <li>Add Service</li>
-            </Link> : <Link to='/resister'>Resister</Link>
-            }
+      <li><NavLink to="/home">Home</NavLink></li>
+      <li><NavLink to="/service">Services</NavLink></li>
+      {user ? (
+        <li><NavLink to="/Add-Service">Add Service</NavLink></li>
+      ) : (
+        <li><NavLink to="/register">Register</NavLink></li>
+      )}
+    </>
+  );
+
+  return (
+    <nav className="navbar sticky top-0 z-50 w-full h-20 bg-base-100 shadow-md px-4 lg:px-20 transition-colors duration-300">
+      {/* Navbar Start: Logo & Mobile Menu */}
+      <div className="navbar-start">
+        <div className="dropdown">
+          <button tabIndex={0} className="btn btn-ghost lg:hidden" aria-label="Open Menu">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
+            </svg>
+          </button>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-200">
+            {navLinks}
           </ul>
         </div>
         
-         
+        <Link to="/home" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
+          <img src="/logo.jpg" alt="Logo" className="h-10 w-10 object-contain rounded" />
+          <span className="font-bold text-xl tracking-tight hidden sm:block">Hero-Home</span>
+        </Link>
+      </div>
 
-        <div className="navbar-end">
+      {/* Navbar Center: Desktop Menu */}
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal px-1 gap-2 font-medium">
+          {navLinks}
+        </ul>
+      </div>
 
-         <label className="toggle mr-2 text-base-content ">
-  <input  type="checkbox"    onChange={(e)=> handleThemes(e.target.checked)}  defaultChecked={localStorage.getItem('theme') === "dark"}/>
-  <svg aria-label="enabled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-   <BsSunFill />
-  </svg>
-  <GoMoon />
-</label>
+      {/* Navbar End: Theme & Profile */}
+      <div className="navbar-end gap-4">
+        {/* Theme Toggle */}
+        <label className="swap swap-rotate btn btn-ghost btn-circle">
+          <input type="checkbox" onChange={() => setIsDark(!isDark)} checked={isDark} />
+          <BsSunFill className="swap-on fill-current w-6 h-6 text-yellow-500" />
+          <BsMoonStarsFill className="swap-off fill-current w-6 h-6 text-slate-700" />
+        </label>
 
-          <div className="dropdown dropdown-hover">
-            {/* <Link to="/Login">
-              <li>Add Service</li>
-            </Link> */}
- <div className="">
-                {user ? (
-                  <Link to="/my-profile">
-                    <img
-                      src={
-                        user?.photoURL || profile
-                      }
-                      className="rounded-full w-10 mr-3 h-10"
-                      alt=""
-                    />
-                  </Link>
-                ) : (
-                  <Link
-                    to="/login"
-                    className="text-blue-900 flex justify-center items-center gap-1"
-                  >
-                    {" "}
-                    <img src={profile} alt=""  className="rounded-full w-15 mr-3 h-15"/>
-                    <span className="text-lg text-blue-900">Login</span>
-                  </Link>
-                )}
-              </div>
-            <div tabIndex={0} role="button" className="mb-2 ">
-           
-             
+        {/* Profile Dropdown */}
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar border border-base-300">
+            <div className="w-10 rounded-full">
+              <img src={user?.photoURL || profilePlaceholder} alt="Profile" />
             </div>
-            {
-              user ? <ul
-              tabIndex="-1"
-              className="dropdown-content menu bg-blue-900 text-white rounded-box z-1  w-22 p-1 shadow-sm"
-            >
-              
-              <Link to='/my-profile'>
-                <li>My-profile</li>
-              </Link>
-              <Link to='/Service-Booking'>
-                {" "}
-                <li>My-Bokking</li>
-              </Link>
-              <Link to='/My-service'>
-                {" "}
-                <li>My-Services</li>
-              </Link>
-
-              <Link onClick={handleLogOut}>
-                <li>Log-out</li>
-              </Link>
-            </ul> : ''
-            }
           </div>
+          <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 border border-base-200">
+            {user ? (
+              <>
+                <li className="menu-title text-xs opacity-50">{user.displayName || "User"}</li>
+                <li><Link to='/my-profile'>My Profile</Link></li>
+                <li><Link to='/Service-Booking'>My Bookings</Link></li>
+                <li><Link to='/My-service'>My Services</Link></li>
+                <div className="divider my-1"></div>
+                <li><button onClick={signOutProfile} className="text-error">Logout</button></li>
+              </>
+            ) : (
+              <li><Link to="/login" className="font-bold text-primary">Login</Link></li>
+            )}
+          </ul>
         </div>
       </div>
-    </>
+    </nav>
   );
 };
 
-export default Navber;
+export default Navbar;

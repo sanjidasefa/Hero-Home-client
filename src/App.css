@@ -8,3 +8,7 @@ body {
 a.active{
   @apply border-b border-b-blue-300
 }
+
+html {
+  scroll-behavior: smooth;
+}
