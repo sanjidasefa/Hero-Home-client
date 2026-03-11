@@ -1,8 +1,8 @@
-# 🏠 Hero Home - Local Service Provider Marketplace
+🏠 Hero Home - Local Service Provider Marketplace
 
-Hero Home is a modern and user-friendly web application that bridges the gap between customers and trusted local service providers such as electricians, plumbers, cleaners, and more. The platform ensures a smooth experience for both customers and providers with real-time management and a clean interface.
+Hero Home is a professional-grade marketplace connecting homeowners with skilled local professionals. Built with the MERN stack, it offers a seamless booking experience, real-time service management, and a highly responsive dashboard.
 
-### 🚀 Live Demo
+🔗 Quick Links
 [View Hero Home Live](https://clientsideherohome.netlify.app/)
 
 ---
@@ -12,14 +12,16 @@ The platform allows users to explore available services, view detailed informati
 
 ---
 
-### ✨ Key Features
-- **Service Listing & Category Filter:** Easily find specific services using organized categories and filters.
-- **Booking & Service Management:** Customers can book appointments, and providers can add or manage their own services.
-- **Firebase Authentication:** Secure login and registration system for users and providers.
-- **User Dashboard:** A personalized space to view, track, and manage all bookings.
-- **Fully Responsive Layout:** Optimized for a perfect experience on mobile, tablet, and desktop devices.
+✨ Advanced Features
+Dynamic Search & Sort: Optimized search functionality with price-based sorting (Low to High / High to Low) using debounce for better performance.
 
----
+Interactive Dashboards: Separate management views for "My Bookings" and "My Services" with real-time status updates.
+
+Modern UI/UX: Built with Framer Motion for smooth scroll animations and daisyUI for a consistent theme-aware interface.
+
+Secure Authentication: Firebase-powered login with persistent session management using React Context API.
+
+Toast Notifications: Real-time feedback using react-hot-toast and SweetAlert2 for critical actions like deletion.
 
 ### 🛠️ Tech Stack
 **Frontend:**
