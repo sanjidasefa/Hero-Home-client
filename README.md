@@ -3,7 +3,7 @@
 Hero Home is a professional-grade marketplace connecting homeowners with skilled local professionals. Built with the MERN stack, it offers a seamless booking experience, real-time service management, and a highly responsive dashboard.
 
 🔗 Quick Links
-[View Hero Home Live](https://clientsideherohome.netlify.app/)
+live link : https://hero-home-client-seven.vercel.app/
 
 ---
 
